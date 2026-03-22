@@ -22,10 +22,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Remove the background from this image and replace it with a clean white background"
-      }
+        "content": [
+              {"type": "text", "text": "Remove the background from this image and replace it with a clean white background"},
+              {"type": "image_url", "image_url": {"url": "https://example.com/product-photo.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/product-photo.jpg"],
     "stream": false
   }'
 ```
@@ -46,15 +48,13 @@ response = client.chat.completions.create(
         "role": "user",
         "content": "Remove the background from this image and replace it with a clean white background"
     }],
-    extra_body={
-        "image_urls": ["https://example.com/product-photo.jpg"]
-    }
+    # Images are included in the message content array above
 )
 
 print(response.choices[0].message.content)
 ```
 
-> `image_urls` is a top-level request parameter (not inside messages). Maximum 4 images.
+> Images are sent inside messages using the OpenAI multimodal content format. Maximum 4 images per request.
 
 ### Streaming
 
@@ -82,10 +82,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Remove the background from this product photo and replace it with a pure white (#FFFFFF) background. Keep the product shadow as a soft drop shadow for a floating effect."
-      }
+        "content": [
+              {"type": "text", "text": "Remove the background from this product photo and replace it with a pure white (#FFFFFF) background. Keep the product shadow as a soft drop shadow for a floating effect."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/watch-on-table.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/watch-on-table.jpg"],
     "stream": false
   }'
 ```
@@ -100,10 +102,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Replace the background behind this person with a blurred modern office environment. Match the lighting direction of the original photo. Keep hair edges clean and natural."
-      }
+        "content": [
+              {"type": "text", "text": "Replace the background behind this person with a blurred modern office environment. Match the lighting direction of the original photo. Keep hair edges clean and natural."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/casual-portrait.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/casual-portrait.jpg"],
     "stream": false
   }'
 ```
@@ -118,10 +122,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Place this person on a dramatic mountain cliff overlooking a misty valley at sunrise. Match the lighting and scale naturally, as if the photo was taken on location."
-      }
+        "content": [
+              {"type": "text", "text": "Place this person on a dramatic mountain cliff overlooking a misty valley at sunrise. Match the lighting and scale naturally, as if the photo was taken on location."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/standing-person.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/standing-person.jpg"],
     "stream": false
   }'
 ```

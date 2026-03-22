@@ -22,10 +22,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Restore this old damaged photograph: remove scratches and tears, fix faded areas, sharpen blurry details, reconstruct any missing portions naturally, maintain the original character and era of the photo while making it clean and clear"
-      }
+        "content": [
+              {"type": "text", "text": "Restore this old damaged photograph: remove scratches and tears, fix faded areas, sharpen blurry details, reconstruct any missing portions naturally, maintain the original character and era of the photo while making it clean and clear"},
+              {"type": "image_url", "image_url": {"url": "https://example.com/old-damaged-photo.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/old-damaged-photo.jpg"],
     "stream": false
   }'
 ```
@@ -46,7 +48,7 @@ response = client.chat.completions.create(
         "role": "user",
         "content": "Restore this old damaged photograph: remove scratches and tears, fix faded areas, sharpen blurry details, reconstruct any missing portions naturally, maintain the original character and era of the photo while making it clean and clear"
     }],
-    extra_body={"image_urls": ["https://example.com/old-damaged-photo.jpg"]}
+    # Images are included in the message content array above
 )
 
 print(response.choices[0].message.content)
@@ -76,10 +78,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Restore this vintage family portrait: remove the deep scratches across the center, repair the torn corner in the upper right, clean up the yellowed and stained areas, sharpen the faces while keeping the natural film grain, preserve the warm vintage tone"
-      }
+        "content": [
+              {"type": "text", "text": "Restore this vintage family portrait: remove the deep scratches across the center, repair the torn corner in the upper right, clean up the yellowed and stained areas, sharpen the faces while keeping the natural film grain, preserve the warm vintage tone"},
+              {"type": "image_url", "image_url": {"url": "https://example.com/scratched-family-photo.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/scratched-family-photo.jpg"],
     "stream": false
   }'
 ```
@@ -94,10 +98,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Restore this severely faded photograph: bring back the lost contrast and detail, recover the shadow areas that have become flat grey, enhance the highlights without blowing them out, reconstruct facial features that have faded, maintain natural photographic quality"
-      }
+        "content": [
+              {"type": "text", "text": "Restore this severely faded photograph: bring back the lost contrast and detail, recover the shadow areas that have become flat grey, enhance the highlights without blowing them out, reconstruct facial features that have faded, maintain natural photographic quality"},
+              {"type": "image_url", "image_url": {"url": "https://example.com/faded-photo.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/faded-photo.jpg"],
     "stream": false
   }'
 ```
@@ -112,10 +118,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Repair this water-damaged photograph: remove the water stains and discoloration, fix the warped and bubbled areas, reconstruct the portions where the emulsion has been washed away, restore natural skin tones and background details"
-      }
+        "content": [
+              {"type": "text", "text": "Repair this water-damaged photograph: remove the water stains and discoloration, fix the warped and bubbled areas, reconstruct the portions where the emulsion has been washed away, restore natural skin tones and background details"},
+              {"type": "image_url", "image_url": {"url": "https://example.com/water-damaged-photo.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/water-damaged-photo.jpg"],
     "stream": false
   }'
 ```

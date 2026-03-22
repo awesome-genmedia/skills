@@ -22,10 +22,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Stage this empty living room with modern Scandinavian furniture: a light grey sectional sofa, a round walnut coffee table, a cream wool rug, floor-standing brass lamp, and two small potted plants. Keep the original room architecture, flooring, and windows exactly as they are. Photorealistic staging."
-      }
+        "content": [
+              {"type": "text", "text": "Stage this empty living room with modern Scandinavian furniture: a light grey sectional sofa, a round walnut coffee table, a cream wool rug, floor-standing brass lamp, and two small potted plants. Keep the original room architecture, flooring, and windows exactly as they are. Photorealistic staging."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/empty-living-room.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/empty-living-room.jpg"],
     "stream": false
   }'
 ```
@@ -46,9 +48,7 @@ response = client.chat.completions.create(
         "role": "user",
         "content": "Stage this empty living room with modern Scandinavian furniture: a light grey sectional sofa, a round walnut coffee table, a cream wool rug, floor-standing brass lamp, and two small potted plants. Keep the original room architecture, flooring, and windows exactly as they are. Photorealistic staging."
     }],
-    extra_body={
-        "image_urls": ["https://example.com/empty-living-room.jpg"]
-    }
+    # Images are included in the message content array above
 )
 
 print(response.choices[0].message.content)
@@ -66,18 +66,18 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Stage the empty room in the first image using the furniture style shown in the second image. Match the aesthetic, color palette, and level of furnishing. Keep the original room layout and architecture intact. Photorealistic result."
-      }
-    ],
-    "image_urls": [
-      "https://example.com/empty-room.jpg",
-      "https://example.com/style-reference.jpg"
+        "content": [
+              {"type": "text", "text": "Stage the empty room in the first image using the furniture style shown in the second image. Match the aesthetic, color palette, and level of furnishing. Keep the original room layout and architecture intact. Photorealistic result."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/empty-room.jpg"}},
+              {"type": "image_url", "image_url": {"url": "https://example.com/style-reference.jpg"}}
+            ]
+          }
     ],
     "stream": false
   }'
 ```
 
-> `image_urls` is a top-level request parameter (not inside messages). Maximum 4 images.
+> Images are sent inside messages using the OpenAI multimodal content format. Maximum 4 images per request.
 
 ### Streaming
 
@@ -129,10 +129,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Stage this empty bedroom with a queen-size upholstered bed in soft grey with white linen bedding, two oak nightstands with ceramic table lamps, a woven jute rug, and sheer white curtains. Modern Scandinavian style. Keep the original hardwood floor, walls, and window. Photorealistic result, real estate photography quality."
-      }
+        "content": [
+              {"type": "text", "text": "Stage this empty bedroom with a queen-size upholstered bed in soft grey with white linen bedding, two oak nightstands with ceramic table lamps, a woven jute rug, and sheer white curtains. Modern Scandinavian style. Keep the original hardwood floor, walls, and window. Photorealistic result, real estate photography quality."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/empty-bedroom.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/empty-bedroom.jpg"],
     "stream": false
   }'
 ```
@@ -147,10 +149,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Stage this empty kitchen dining area with a rectangular oak dining table and six black Windsor chairs, a pendant light fixture over the table, a small vase with eucalyptus branches, and placemats. Farmhouse style. Preserve the existing kitchen cabinets, countertops, and appliances. Photorealistic, natural daylight."
-      }
+        "content": [
+              {"type": "text", "text": "Stage this empty kitchen dining area with a rectangular oak dining table and six black Windsor chairs, a pendant light fixture over the table, a small vase with eucalyptus branches, and placemats. Farmhouse style. Preserve the existing kitchen cabinets, countertops, and appliances. Photorealistic, natural daylight."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/empty-kitchen-dining.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/empty-kitchen-dining.jpg"],
     "stream": false
   }'
 ```
@@ -165,10 +169,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Stage this empty room as a home office: walnut standing desk with a monitor, ergonomic mesh chair, wall-mounted floating shelves with books and small plants, a floor lamp with warm light, and a geometric area rug. Contemporary minimalist style. Keep original walls, floor, and window. Photorealistic, professional real estate photo."
-      }
+        "content": [
+              {"type": "text", "text": "Stage this empty room as a home office: walnut standing desk with a monitor, ergonomic mesh chair, wall-mounted floating shelves with books and small plants, a floor lamp with warm light, and a geometric area rug. Contemporary minimalist style. Keep original walls, floor, and window. Photorealistic, professional real estate photo."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/empty-room.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/empty-room.jpg"],
     "stream": false
   }'
 ```

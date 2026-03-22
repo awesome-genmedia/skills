@@ -22,10 +22,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Change the sky to a dramatic sunset with orange and purple clouds. Keep everything else the same."
-      }
+        "content": [
+              {"type": "text", "text": "Change the sky to a dramatic sunset with orange and purple clouds. Keep everything else the same."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/landscape-photo.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/landscape-photo.jpg"],
     "stream": false
   }'
 ```
@@ -46,15 +48,13 @@ response = client.chat.completions.create(
         "role": "user",
         "content": "Change the sky to a dramatic sunset with orange and purple clouds. Keep everything else the same."
     }],
-    extra_body={
-        "image_urls": ["https://example.com/landscape-photo.jpg"]
-    }
+    # Images are included in the message content array above
 )
 
 print(response.choices[0].message.content)
 ```
 
-> `image_urls` is a top-level request parameter (not inside messages). Maximum 4 images.
+> Images are sent inside messages using the OpenAI multimodal content format. Maximum 4 images per request.
 
 ### Streaming
 
@@ -85,10 +85,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Remove the trash can from the right side of the image and fill the area naturally with the surrounding pavement and grass"
-      }
+        "content": [
+              {"type": "text", "text": "Remove the trash can from the right side of the image and fill the area naturally with the surrounding pavement and grass"},
+              {"type": "image_url", "image_url": {"url": "https://example.com/park-photo.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/park-photo.jpg"],
     "stream": false
   }'
 ```
@@ -103,10 +105,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Change the sneaker color from white to forest green. Keep the sole white. Maintain the same material texture and lighting."
-      }
+        "content": [
+              {"type": "text", "text": "Change the sneaker color from white to forest green. Keep the sole white. Maintain the same material texture and lighting."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/white-sneaker.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/white-sneaker.jpg"],
     "stream": false
   }'
 ```
@@ -121,10 +125,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Transform this city street photo into a Studio Ghibli anime style illustration. Keep the same composition and elements, but render everything in the warm, hand-painted anime aesthetic"
-      }
+        "content": [
+              {"type": "text", "text": "Transform this city street photo into a Studio Ghibli anime style illustration. Keep the same composition and elements, but render everything in the warm, hand-painted anime aesthetic"},
+              {"type": "image_url", "image_url": {"url": "https://example.com/tokyo-street.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/tokyo-street.jpg"],
     "stream": false
   }'
 ```
@@ -139,10 +145,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Transform this summer garden photo to autumn. Change the green leaves to red, orange, and gold. Add fallen leaves on the ground. Keep the same composition and structures."
-      }
+        "content": [
+              {"type": "text", "text": "Transform this summer garden photo to autumn. Change the green leaves to red, orange, and gold. Add fallen leaves on the ground. Keep the same composition and structures."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/summer-garden.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/summer-garden.jpg"],
     "stream": false
   }'
 ```
@@ -166,10 +174,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Remove the power lines from this landscape photo"
-      }
+        "content": [
+              {"type": "text", "text": "Remove the power lines from this landscape photo"},
+              {"type": "image_url", "image_url": {"url": "https://example.com/original.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/original.jpg"],
     "stream": false
   }'
 
@@ -181,10 +191,11 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Enhance the colors, boost saturation slightly, and add a warm golden hour glow"
-      }
+        "content": [
+              {"type": "text", "text": "Enhance the colors, boost saturation slightly, and add a warm golden hour glow"}
+            ]
+          }
     ],
-    "image_urls": ["<URL_FROM_STEP_1>"],
     "stream": false
   }'
 ```

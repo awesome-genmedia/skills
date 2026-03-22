@@ -22,10 +22,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Upscale this image to 4x resolution. Enhance sharpness and detail while keeping the original look natural. Remove any compression artifacts."
-      }
+        "content": [
+              {"type": "text", "text": "Upscale this image to 4x resolution. Enhance sharpness and detail while keeping the original look natural. Remove any compression artifacts."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/low-res-photo.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/low-res-photo.jpg"],
     "stream": false
   }'
 ```
@@ -46,15 +48,13 @@ response = client.chat.completions.create(
         "role": "user",
         "content": "Upscale this image to 4x resolution. Enhance sharpness and detail while keeping the original look natural. Remove any compression artifacts."
     }],
-    extra_body={
-        "image_urls": ["https://example.com/low-res-photo.jpg"]
-    }
+    # Images are included in the message content array above
 )
 
 print(response.choices[0].message.content)
 ```
 
-> `image_urls` is a top-level request parameter (not inside messages). Maximum 4 images.
+> Images are sent inside messages using the OpenAI multimodal content format. Maximum 4 images per request.
 
 ### Streaming
 
@@ -82,10 +82,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Upscale this photograph for large-format printing. Increase resolution while preserving natural skin textures, fine hair detail, and fabric weave. Do not over-sharpen or add artificial detail."
-      }
+        "content": [
+              {"type": "text", "text": "Upscale this photograph for large-format printing. Increase resolution while preserving natural skin textures, fine hair detail, and fabric weave. Do not over-sharpen or add artificial detail."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/portrait-web.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/portrait-web.jpg"],
     "stream": false
   }'
 ```
@@ -100,10 +102,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Upscale this digital illustration to high resolution. Preserve the clean line art, flat color areas, and intentional brush strokes. Keep the artistic style intact without adding photorealistic detail."
-      }
+        "content": [
+              {"type": "text", "text": "Upscale this digital illustration to high resolution. Preserve the clean line art, flat color areas, and intentional brush strokes. Keep the artistic style intact without adding photorealistic detail."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/illustration-small.png"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/illustration-small.png"],
     "stream": false
   }'
 ```
@@ -118,10 +122,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Upscale and restore this old scanned photograph. Remove film grain and scanning artifacts. Enhance facial details and sharpness. Correct faded colors to look natural. Output at 4x the original resolution."
-      }
+        "content": [
+              {"type": "text", "text": "Upscale and restore this old scanned photograph. Remove film grain and scanning artifacts. Enhance facial details and sharpness. Correct faded colors to look natural. Output at 4x the original resolution."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/old-family-photo-scan.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/old-family-photo-scan.jpg"],
     "stream": false
   }'
 ```

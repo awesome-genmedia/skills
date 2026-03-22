@@ -22,10 +22,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Remove the parked car in the center of this street photo and fill the area with the surrounding cobblestone road and a few fallen leaves to match the scene"
-      }
+        "content": [
+              {"type": "text", "text": "Remove the parked car in the center of this street photo and fill the area with the surrounding cobblestone road and a few fallen leaves to match the scene"},
+              {"type": "image_url", "image_url": {"url": "https://example.com/street-with-car.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/street-with-car.jpg"],
     "stream": false
   }'
 ```
@@ -40,10 +42,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Extend this landscape photo to the left and right to create a wider panoramic view. Continue the mountain range, sky, and meadow naturally."
-      }
+        "content": [
+              {"type": "text", "text": "Extend this landscape photo to the left and right to create a wider panoramic view. Continue the mountain range, sky, and meadow naturally."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/mountain-landscape.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/mountain-landscape.jpg"],
     "stream": false
   }'
 ```
@@ -64,15 +68,13 @@ response = client.chat.completions.create(
         "role": "user",
         "content": "Extend this portrait photo downward to show the full outfit. Continue the style, fabric, and lighting naturally."
     }],
-    extra_body={
-        "image_urls": ["https://example.com/portrait-cropped.jpg"]
-    }
+    # Images are included in the message content array above
 )
 
 print(response.choices[0].message.content)
 ```
 
-> `image_urls` is a top-level request parameter (not inside messages). Maximum 4 images.
+> Images are sent inside messages using the OpenAI multimodal content format. Maximum 4 images per request.
 
 ### Streaming
 
@@ -110,10 +112,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Replace the empty vase on the table with a lush bouquet of sunflowers. Match the lighting and shadows of the surrounding scene."
-      }
+        "content": [
+              {"type": "text", "text": "Replace the empty vase on the table with a lush bouquet of sunflowers. Match the lighting and shadows of the surrounding scene."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/table-scene.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/table-scene.jpg"],
     "stream": false
   }'
 ```
@@ -128,10 +132,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "This image is square (1:1). Extend it to a 16:9 landscape ratio by adding content to the left and right sides. Continue the environment seamlessly."
-      }
+        "content": [
+              {"type": "text", "text": "This image is square (1:1). Extend it to a 16:9 landscape ratio by adding content to the left and right sides. Continue the environment seamlessly."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/square-photo.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/square-photo.jpg"],
     "stream": false
   }'
 ```
@@ -146,10 +152,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "This old photo has tears and creases across the middle. Repair the damaged areas, reconstruct missing details, and make the photo look intact and natural."
-      }
+        "content": [
+              {"type": "text", "text": "This old photo has tears and creases across the middle. Repair the damaged areas, reconstruct missing details, and make the photo look intact and natural."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/torn-old-photo.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/torn-old-photo.jpg"],
     "stream": false
   }'
 ```

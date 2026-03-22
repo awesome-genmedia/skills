@@ -62,15 +62,17 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Redraw this rough floor plan sketch as a clean professional architectural floor plan. Add room labels, door swings, and window indicators. Maintain the same room layout and proportions. Black lines on white background, top-down view."
-      }
+        "content": [
+              {"type": "text", "text": "Redraw this rough floor plan sketch as a clean professional architectural floor plan. Add room labels, door swings, and window indicators. Maintain the same room layout and proportions. Black lines on white background, top-down view."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/rough-sketch.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/rough-sketch.jpg"],
     "stream": false
   }'
 ```
 
-> `image_urls` is a top-level request parameter (not inside messages). Maximum 4 images.
+> Images are sent inside messages using the OpenAI multimodal content format. Maximum 4 images per request.
 
 ### Streaming
 

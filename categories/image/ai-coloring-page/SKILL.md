@@ -62,15 +62,17 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Convert this image into a coloring page. Extract the main outlines and shapes, remove all color and shading, create clean black line art on a white background suitable for coloring with crayons or colored pencils."
-      }
+        "content": [
+              {"type": "text", "text": "Convert this image into a coloring page. Extract the main outlines and shapes, remove all color and shading, create clean black line art on a white background suitable for coloring with crayons or colored pencils."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/colorful-scene.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/colorful-scene.jpg"],
     "stream": false
   }'
 ```
 
-> `image_urls` is a top-level request parameter (not inside messages). Maximum 4 images.
+> Images are sent inside messages using the OpenAI multimodal content format. Maximum 4 images per request.
 
 ### Streaming
 

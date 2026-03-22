@@ -22,10 +22,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Transform this photograph into a Van Gogh-style oil painting: swirling brushstrokes, thick impasto texture, vibrant post-impressionist colors, starry night energy, maintain the original composition and subjects but reimagine entirely in oil paint"
-      }
+        "content": [
+              {"type": "text", "text": "Transform this photograph into a Van Gogh-style oil painting: swirling brushstrokes, thick impasto texture, vibrant post-impressionist colors, starry night energy, maintain the original composition and subjects but reimagine entirely in oil paint"},
+              {"type": "image_url", "image_url": {"url": "https://example.com/original-photo.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/original-photo.jpg"],
     "stream": false
   }'
 ```
@@ -46,7 +48,7 @@ response = client.chat.completions.create(
         "role": "user",
         "content": "Transform this photograph into a Van Gogh-style oil painting: swirling brushstrokes, thick impasto texture, vibrant post-impressionist colors, starry night energy, maintain the original composition and subjects but reimagine entirely in oil paint"
     }],
-    extra_body={"image_urls": ["https://example.com/original-photo.jpg"]}
+    # Images are included in the message content array above
 )
 
 print(response.choices[0].message.content)
@@ -76,10 +78,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Convert this landscape photograph into a delicate watercolor painting: soft color washes bleeding at the edges, visible paper texture, loose brushwork in the foliage, sharper detail in the foreground, traditional watercolor technique with wet-on-wet blending"
-      }
+        "content": [
+              {"type": "text", "text": "Convert this landscape photograph into a delicate watercolor painting: soft color washes bleeding at the edges, visible paper texture, loose brushwork in the foliage, sharper detail in the foreground, traditional watercolor technique with wet-on-wet blending"},
+              {"type": "image_url", "image_url": {"url": "https://example.com/landscape.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/landscape.jpg"],
     "stream": false
   }'
 ```
@@ -94,10 +98,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Transform this portrait into anime style: large expressive eyes, clean line art, flat color shading with subtle gradients, characteristic anime hair rendering, maintain the person's overall look and clothing but fully converted to Japanese anime aesthetic"
-      }
+        "content": [
+              {"type": "text", "text": "Transform this portrait into anime style: large expressive eyes, clean line art, flat color shading with subtle gradients, characteristic anime hair rendering, maintain the person's overall look and clothing but fully converted to Japanese anime aesthetic"},
+              {"type": "image_url", "image_url": {"url": "https://example.com/portrait.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/portrait.jpg"],
     "stream": false
   }'
 ```
@@ -112,10 +118,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Transform this city street photo into a detailed pencil sketch: fine hatching and cross-hatching for shadows, clean lines for architecture, varying pencil pressure for depth, white paper background showing through, skilled draughtsman quality, graphite on paper"
-      }
+        "content": [
+              {"type": "text", "text": "Transform this city street photo into a detailed pencil sketch: fine hatching and cross-hatching for shadows, clean lines for architecture, varying pencil pressure for depth, white paper background showing through, skilled draughtsman quality, graphite on paper"},
+              {"type": "image_url", "image_url": {"url": "https://example.com/city-street.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/city-street.jpg"],
     "stream": false
   }'
 ```
@@ -130,10 +138,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Transform this portrait into Andy Warhol pop art style: bold flat colors, high contrast, four-panel grid with different color variations — pink and yellow, blue and green, orange and purple, red and teal — Ben-Day dots texture, iconic pop art screen print aesthetic"
-      }
+        "content": [
+              {"type": "text", "text": "Transform this portrait into Andy Warhol pop art style: bold flat colors, high contrast, four-panel grid with different color variations — pink and yellow, blue and green, orange and purple, red and teal — Ben-Day dots texture, iconic pop art screen print aesthetic"},
+              {"type": "image_url", "image_url": {"url": "https://example.com/face-photo.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/face-photo.jpg"],
     "stream": false
   }'
 ```

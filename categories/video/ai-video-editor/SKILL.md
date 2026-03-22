@@ -22,10 +22,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Edit this video: apply a warm cinematic color grade with slightly desaturated tones, add a subtle film grain overlay, and enhance the contrast for a moody atmospheric look"
-      }
+        "content": [
+              {"type": "text", "text": "Edit this video: apply a warm cinematic color grade with slightly desaturated tones, add a subtle film grain overlay, and enhance the contrast for a moody atmospheric look"},
+              {"type": "image_url", "image_url": {"url": "https://example.com/raw-footage.mp4"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/raw-footage.mp4"],
     "stream": false
   }'
 ```
@@ -46,15 +48,13 @@ response = client.chat.completions.create(
         "role": "user",
         "content": "Edit this video: apply a warm cinematic color grade with slightly desaturated tones, add a subtle film grain overlay, and enhance the contrast for a moody atmospheric look"
     }],
-    extra_body={
-        "image_urls": ["https://example.com/raw-footage.mp4"]
-    }
+    # Images are included in the message content array above
 )
 
 print(response.choices[0].message.content)
 ```
 
-> `image_urls` is a top-level request parameter (not inside messages). Maximum 4 images/videos.
+> Images are sent inside messages using the OpenAI multimodal content format. Maximum 4 images per request.
 
 ### Streaming
 
@@ -83,10 +83,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Apply a cinematic teal-and-orange color grade to this video. Shadows pushed toward teal, highlights toward warm amber. Slightly raised black levels for a filmic look. Consistent throughout the clip."
-      }
+        "content": [
+              {"type": "text", "text": "Apply a cinematic teal-and-orange color grade to this video. Shadows pushed toward teal, highlights toward warm amber. Slightly raised black levels for a filmic look. Consistent throughout the clip."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/interview-footage.mp4"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/interview-footage.mp4"],
     "stream": false
   }'
 ```
@@ -101,10 +103,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Transform this real-world video into a hand-painted watercolor animation style. Soft brush strokes, gentle color bleeding at edges, paper texture visible, maintain smooth motion. Keep the same subjects and movements."
-      }
+        "content": [
+              {"type": "text", "text": "Transform this real-world video into a hand-painted watercolor animation style. Soft brush strokes, gentle color bleeding at edges, paper texture visible, maintain smooth motion. Keep the same subjects and movements."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/park-walk.mp4"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/park-walk.mp4"],
     "stream": false
   }'
 ```
@@ -119,10 +123,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Add rain to this outdoor video: heavy raindrops falling, wet reflections on the ground, slight mist in the distance, darker sky. The rain should interact naturally with the scene and be consistent frame-to-frame."
-      }
+        "content": [
+              {"type": "text", "text": "Add rain to this outdoor video: heavy raindrops falling, wet reflections on the ground, slight mist in the distance, darker sky. The rain should interact naturally with the scene and be consistent frame-to-frame."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/street-scene.mp4"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/street-scene.mp4"],
     "stream": false
   }'
 ```

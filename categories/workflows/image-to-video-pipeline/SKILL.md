@@ -41,10 +41,11 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Animate this image: the eagle slowly spreads its wings preparing to take flight, snow particles drift gently in the wind, clouds move slowly in the background, subtle camera zoom in, cinematic wildlife documentary style"
-      }
+        "content": [
+              {"type": "text", "text": "Animate this image: the eagle slowly spreads its wings preparing to take flight, snow particles drift gently in the wind, clouds move slowly in the background, subtle camera zoom in, cinematic wildlife documentary style"}
+            ]
+          }
     ],
-    "image_urls": ["IMAGE_URL_FROM_STEP_1"],
     "stream": false
   }'
 ```
@@ -83,7 +84,7 @@ video_response = client.chat.completions.create(
         "role": "user",
         "content": "Animate this image: the eagle slowly spreads its wings preparing to take flight, snow particles drift gently in the wind, clouds move slowly in the background, subtle camera zoom in, cinematic wildlife documentary style"
     }],
-    extra_body={"image_urls": [image_url]}
+    # Images are included in the message content array above
 )
 
 video_result = video_response.choices[0].message.content
@@ -133,10 +134,11 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Animate this scene: cherry blossom petals gently falling and landing on the pond surface creating small ripples, koi fish slowly swimming beneath the surface, a very gentle breeze moving the branches, slow cinematic pan from left to right"
-      }
+        "content": [
+              {"type": "text", "text": "Animate this scene: cherry blossom petals gently falling and landing on the pond surface creating small ripples, koi fish slowly swimming beneath the surface, a very gentle breeze moving the branches, slow cinematic pan from left to right"}
+            ]
+          }
     ],
-    "image_urls": ["IMAGE_URL_FROM_STEP_1"],
     "stream": false
   }'
 ```
@@ -170,10 +172,11 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Animate this product shot: slow 360-degree rotation of the perfume bottle, light catching different facets as it turns, subtle sparkle effects on the crystal, smooth cinematic rotation, luxury brand commercial style"
-      }
+        "content": [
+              {"type": "text", "text": "Animate this product shot: slow 360-degree rotation of the perfume bottle, light catching different facets as it turns, subtle sparkle effects on the crystal, smooth cinematic rotation, luxury brand commercial style"}
+            ]
+          }
     ],
-    "image_urls": ["IMAGE_URL_FROM_STEP_1"],
     "stream": false
   }'
 ```

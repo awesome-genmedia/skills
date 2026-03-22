@@ -22,10 +22,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Redesign this living room in a japandi style: replace the furniture with low-profile pieces in natural wood and muted earth tones. Add a shoji-inspired room divider, floor cushions, a low coffee table, and indoor bonsai plants. Keep the room dimensions and window positions. Warm natural lighting, photorealistic interior design rendering."
-      }
+        "content": [
+              {"type": "text", "text": "Redesign this living room in a japandi style: replace the furniture with low-profile pieces in natural wood and muted earth tones. Add a shoji-inspired room divider, floor cushions, a low coffee table, and indoor bonsai plants. Keep the room dimensions and window positions. Warm natural lighting, photorealistic interior design rendering."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/current-living-room.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/current-living-room.jpg"],
     "stream": false
   }'
 ```
@@ -46,9 +48,7 @@ response = client.chat.completions.create(
         "role": "user",
         "content": "Redesign this living room in a japandi style: replace the furniture with low-profile pieces in natural wood and muted earth tones. Add a shoji-inspired room divider, floor cushions, a low coffee table, and indoor bonsai plants. Keep the room dimensions and window positions. Warm natural lighting, photorealistic interior design rendering."
     }],
-    extra_body={
-        "image_urls": ["https://example.com/current-living-room.jpg"]
-    }
+    # Images are included in the message content array above
 )
 
 print(response.choices[0].message.content)
@@ -66,18 +66,18 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Redesign the room in the first image to match the style of the second image. Apply the same color palette, material choices, and furniture style. Preserve the room layout and window placement from the first image. Photorealistic interior design visualization."
-      }
-    ],
-    "image_urls": [
-      "https://example.com/current-room.jpg",
-      "https://example.com/inspiration-room.jpg"
+        "content": [
+              {"type": "text", "text": "Redesign the room in the first image to match the style of the second image. Apply the same color palette, material choices, and furniture style. Preserve the room layout and window placement from the first image. Photorealistic interior design visualization."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/current-room.jpg"}},
+              {"type": "image_url", "image_url": {"url": "https://example.com/inspiration-room.jpg"}}
+            ]
+          }
     ],
     "stream": false
   }'
 ```
 
-> `image_urls` is a top-level request parameter (not inside messages). Maximum 4 images.
+> Images are sent inside messages using the OpenAI multimodal content format. Maximum 4 images per request.
 
 ### Streaming
 
@@ -130,10 +130,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Redesign this dated kitchen into a contemporary open kitchen: flat-panel white cabinets, quartz waterfall island in calacatta marble pattern, matte black fixtures and hardware, integrated appliances, pendant lights over the island. Keep the window placement and room footprint. Bright natural light, photorealistic architectural visualization."
-      }
+        "content": [
+              {"type": "text", "text": "Redesign this dated kitchen into a contemporary open kitchen: flat-panel white cabinets, quartz waterfall island in calacatta marble pattern, matte black fixtures and hardware, integrated appliances, pendant lights over the island. Keep the window placement and room footprint. Bright natural light, photorealistic architectural visualization."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/old-kitchen.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/old-kitchen.jpg"],
     "stream": false
   }'
 ```
@@ -148,10 +150,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Transform this bedroom into a cozy bohemian retreat: change wall color to warm terracotta, add a low platform bed with a rattan headboard and layered textile bedding in rust and cream, macrame wall hanging, vintage kilim rug, trailing pothos plants on a shelf. Warm evening lamp glow, photorealistic interior design photo."
-      }
+        "content": [
+              {"type": "text", "text": "Transform this bedroom into a cozy bohemian retreat: change wall color to warm terracotta, add a low platform bed with a rattan headboard and layered textile bedding in rust and cream, macrame wall hanging, vintage kilim rug, trailing pothos plants on a shelf. Warm evening lamp glow, photorealistic interior design photo."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/plain-bedroom.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/plain-bedroom.jpg"],
     "stream": false
   }'
 ```
@@ -166,10 +170,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Redesign this bathroom into a spa-inspired space: replace tiles with large-format zellige tiles in sage green, freestanding oval soaking tub, floating vanity in natural oak with a vessel stone basin, matte brass fixtures, frameless glass shower partition, eucalyptus branch in a ceramic vase. Soft diffused lighting, photorealistic interior visualization."
-      }
+        "content": [
+              {"type": "text", "text": "Redesign this bathroom into a spa-inspired space: replace tiles with large-format zellige tiles in sage green, freestanding oval soaking tub, floating vanity in natural oak with a vessel stone basin, matte brass fixtures, frameless glass shower partition, eucalyptus branch in a ceramic vase. Soft diffused lighting, photorealistic interior visualization."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/old-bathroom.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/old-bathroom.jpg"],
     "stream": false
   }'
 ```

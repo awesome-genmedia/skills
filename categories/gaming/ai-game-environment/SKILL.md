@@ -62,15 +62,17 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Create a game environment based on this mood reference. Match the color palette and atmosphere. A frozen lakeside village with wooden longhouses, ice-covered docks, and mountains in the distance. Painted concept art, wide composition."
-      }
+        "content": [
+              {"type": "text", "text": "Create a game environment based on this mood reference. Match the color palette and atmosphere. A frozen lakeside village with wooden longhouses, ice-covered docks, and mountains in the distance. Painted concept art, wide composition."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/mood-reference.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/mood-reference.jpg"],
     "stream": false
   }'
 ```
 
-> `image_urls` is a top-level request parameter (not inside messages). Maximum 4 images.
+> Images are sent inside messages using the OpenAI multimodal content format. Maximum 4 images per request.
 
 ### Streaming
 

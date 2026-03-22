@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "skills": {
+    "background-removal": {
+      "source": "awesome-genmedia/skills",
+      "sourceType": "github",
+      "computedHash": "daef824225b084c94e5cbec86ff106fbdad750c5be3d15de365d9f4e1a26e8e1"
+    },
+    "face-swap": {
+      "source": "awesome-genmedia/skills",
+      "sourceType": "github",
+      "computedHash": "7900d0e46a48dc2d2eb15435f5756338ad860d33d2e4a7a8b15efae5710f6cc3"
+    },
+    "image-editing": {
+      "source": "awesome-genmedia/skills",
+      "sourceType": "github",
+      "computedHash": "fb8eb9c1aa45766c6e570c5503db2f301f2bbfd8f01d0c3971369d8e5404113c"
+    },
+    "image-generation": {
+      "source": "awesome-genmedia/skills",
+      "sourceType": "github",
+      "computedHash": "2bd2d8b78538fd2766904e79000b875218cfd9d9d1bf0bc29b539758debca3dd"
+    },
+    "image-upscaling": {
+      "source": "awesome-genmedia/skills",
+      "sourceType": "github",
+      "computedHash": "fc12c70552a0cdd4bc1b594e52faf3626c60a910e2e1292632b4f9795b292ff3"
+    },
+    "lyrics-generation": {
+      "source": "awesome-genmedia/skills",
+      "sourceType": "github",
+      "computedHash": "883d35e8f4ee4d30db24d59482e80e387440fad90d7bf9a8f9b5a0d3635616bf"
+    },
+    "music-generation": {
+      "source": "awesome-genmedia/skills",
+      "sourceType": "github",
+      "computedHash": "84637284dadd12fed8f5837835193a695224a1c6fc8e99d46bb8d9ea85180e30"
+    },
+    "song-generation": {
+      "source": "awesome-genmedia/skills",
+      "sourceType": "github",
+      "computedHash": "01971dd4e12882c9809756001e688de80ac1056584b9effa967885ee3f19aa3b"
+    },
+    "sound-effects": {
+      "source": "awesome-genmedia/skills",
+      "sourceType": "github",
+      "computedHash": "38ba028803cabbfe7f2c019dd66f3de540c3ff1ac93515539eb2141c7916248f"
+    },
+    "speech-to-text": {
+      "source": "awesome-genmedia/skills",
+      "sourceType": "github",
+      "computedHash": "c5e75baa9cf46137e7ca74f6575faa99972ce79955258aed6c11052c60a8cb8b"
+    },
+    "text-to-speech": {
+      "source": "awesome-genmedia/skills",
+      "sourceType": "github",
+      "computedHash": "b8ce54058fdaa776ffd25290f1af7c1ea16284a4f2f5f37ac7270e9ab1900201"
+    },
+    "video-editing": {
+      "source": "awesome-genmedia/skills",
+      "sourceType": "github",
+      "computedHash": "97cc8f68d7401af4ebccd974cb1041e1b8fa63bb5c82697aad44cde3d4f354a6"
+    },
+    "video-generation": {
+      "source": "awesome-genmedia/skills",
+      "sourceType": "github",
+      "computedHash": "db9d245e67cea54496decc5d5c042f1ce7777e34892f02ae78757185a5b85c78"
+    },
+    "voice-generation": {
+      "source": "awesome-genmedia/skills",
+      "sourceType": "github",
+      "computedHash": "d39807e32c11547b3c96aa095c958ef48ddac79f8a85f1f7e3cefa35a9e663dc"
+    }
+  }
+}

@@ -22,10 +22,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Age the person in this photo to look about 75 years old. Add realistic wrinkles, age spots, gray hair, and slight sagging while keeping their identity clearly recognizable."
-      }
+        "content": [
+              {"type": "text", "text": "Age the person in this photo to look about 75 years old. Add realistic wrinkles, age spots, gray hair, and slight sagging while keeping their identity clearly recognizable."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/young-portrait.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/young-portrait.jpg"],
     "stream": false
   }'
 ```
@@ -46,9 +48,7 @@ response = client.chat.completions.create(
         "role": "user",
         "content": "Age the person in this photo to look about 75 years old. Add realistic wrinkles, age spots, gray hair, and slight sagging while keeping their identity clearly recognizable."
     }],
-    extra_body={
-        "image_urls": ["https://example.com/young-portrait.jpg"]
-    }
+    # Images are included in the message content array above
 )
 
 print(response.choices[0].message.content)
@@ -61,13 +61,17 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
   -H "Content-Type: application/json" \
   -H "X-API-Key: $EACHLABS_API_KEY" \
   -d '{
-    "messages": [{"role": "user", "content": "Make this person look 30 years older with natural aging effects, keeping their identity intact"}],
-    "image_urls": ["https://example.com/portrait.jpg"],
+    "messages": [{"role": "user", "content": [
+              {"type": "text", "text": "Make this person look 30 years older with natural aging effects, keeping their identity intact"},
+              {"type": "image_url", "image_url": {"url": "https://example.com/portrait.jpg"}}
+            ]
+          }
+    ],
     "stream": false
   }'
 ```
 
-> `image_urls` is a top-level request parameter (not inside messages). Maximum 4 images.
+> Images are sent inside messages using the OpenAI multimodal content format. Maximum 4 images per request.
 
 ### Streaming
 
@@ -121,10 +125,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Transform this person to look about 80 years old. Add deep wrinkles across the forehead and around the eyes, white thinning hair, age spots on the temples, and slight jowls. The skin should look thinner and more translucent. Maintain their identity and expression."
-      }
+        "content": [
+              {"type": "text", "text": "Transform this person to look about 80 years old. Add deep wrinkles across the forehead and around the eyes, white thinning hair, age spots on the temples, and slight jowls. The skin should look thinner and more translucent. Maintain their identity and expression."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/adult-portrait.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/adult-portrait.jpg"],
     "stream": false
   }'
 ```
@@ -139,10 +145,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Make this person look 25 years old. Remove wrinkles, restore the hair to a natural dark color, tighten the jawline, smooth the skin, and brighten the eyes. Keep the same person recognizable but significantly younger."
-      }
+        "content": [
+              {"type": "text", "text": "Make this person look 25 years old. Remove wrinkles, restore the hair to a natural dark color, tighten the jawline, smooth the skin, and brighten the eyes. Keep the same person recognizable but significantly younger."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/older-person.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/older-person.jpg"],
     "stream": false
   }'
 ```
@@ -157,10 +165,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Age this 20-something person to look about 50. Add subtle crow's feet, light forehead lines, salt-and-pepper hair at the temples, and very slight nasolabial folds. Keep it realistic and natural, not dramatic."
-      }
+        "content": [
+              {"type": "text", "text": "Age this 20-something person to look about 50. Add subtle crow's feet, light forehead lines, salt-and-pepper hair at the temples, and very slight nasolabial folds. Keep it realistic and natural, not dramatic."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/young-adult.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/young-adult.jpg"],
     "stream": false
   }'
 ```
@@ -175,10 +185,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Transform this adult to look like a child around age 8. Round the face, make the eyes proportionally larger, remove all wrinkles and lines, add a childlike softness to the features. Keep enough resemblance to recognize this is the same person as a child."
-      }
+        "content": [
+              {"type": "text", "text": "Transform this adult to look like a child around age 8. Round the face, make the eyes proportionally larger, remove all wrinkles and lines, add a childlike softness to the features. Keep enough resemblance to recognize this is the same person as a child."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/adult-face.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/adult-face.jpg"],
     "stream": false
   }'
 ```
@@ -194,10 +206,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Transform this person to look like a 10-year-old child. Round face, big eyes, smooth skin, childlike features, same identity."
-      }
+        "content": [
+              {"type": "text", "text": "Transform this person to look like a 10-year-old child. Round face, big eyes, smooth skin, childlike features, same identity."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/current-photo.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/current-photo.jpg"],
     "stream": false
   }'
 
@@ -209,10 +223,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Age this person to look approximately 50 years old. Subtle wrinkles, some gray hair, slight skin laxity, same identity."
-      }
+        "content": [
+              {"type": "text", "text": "Age this person to look approximately 50 years old. Subtle wrinkles, some gray hair, slight skin laxity, same identity."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/current-photo.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/current-photo.jpg"],
     "stream": false
   }'
 
@@ -224,10 +240,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Age this person to look approximately 85 years old. Deep wrinkles, white hair, thin skin, age spots, same identity."
-      }
+        "content": [
+              {"type": "text", "text": "Age this person to look approximately 85 years old. Deep wrinkles, white hair, thin skin, age spots, same identity."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/current-photo.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/current-photo.jpg"],
     "stream": false
   }'
 ```

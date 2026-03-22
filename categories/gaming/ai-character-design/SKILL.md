@@ -62,15 +62,17 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Design a new character in the same art style as this reference. Create a male warrior version: heavy plate armor, greataxe, battle scars, braided red beard. Same visual style, line weight, and color approach as the reference image. Full body concept art."
-      }
+        "content": [
+              {"type": "text", "text": "Design a new character in the same art style as this reference. Create a male warrior version: heavy plate armor, greataxe, battle scars, braided red beard. Same visual style, line weight, and color approach as the reference image. Full body concept art."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/existing-character-style.png"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/existing-character-style.png"],
     "stream": false
   }'
 ```
 
-> `image_urls` is a top-level request parameter (not inside messages). Maximum 4 images.
+> Images are sent inside messages using the OpenAI multimodal content format. Maximum 4 images per request.
 
 ### Streaming
 

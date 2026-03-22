@@ -62,15 +62,17 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Convert this logo into a mobile app icon format. Simplify the design to work at small sizes, place it centered on a solid background color that matches the brand, square format with rounded corners, recognizable at 60x60 pixels."
-      }
+        "content": [
+              {"type": "text", "text": "Convert this logo into a mobile app icon format. Simplify the design to work at small sizes, place it centered on a solid background color that matches the brand, square format with rounded corners, recognizable at 60x60 pixels."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/company-logo.png"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/company-logo.png"],
     "stream": false
   }'
 ```
 
-> `image_urls` is a top-level request parameter (not inside messages). Maximum 4 images.
+> Images are sent inside messages using the OpenAI multimodal content format. Maximum 4 images per request.
 
 ### Streaming
 

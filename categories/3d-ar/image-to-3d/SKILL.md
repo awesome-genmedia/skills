@@ -22,10 +22,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Convert this image into a 3D model. Generate a three-quarter view 3D render showing the object from a slightly elevated angle, revealing depth and volume. Clean studio background, soft lighting, photorealistic 3D rendering."
-      }
+        "content": [
+              {"type": "text", "text": "Convert this image into a 3D model. Generate a three-quarter view 3D render showing the object from a slightly elevated angle, revealing depth and volume. Clean studio background, soft lighting, photorealistic 3D rendering."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/product-photo.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/product-photo.jpg"],
     "stream": false
   }'
 ```
@@ -46,9 +48,7 @@ response = client.chat.completions.create(
         "role": "user",
         "content": "Convert this image into a 3D model. Generate a three-quarter view 3D render showing the object from a slightly elevated angle, revealing depth and volume. Clean studio background, soft lighting, photorealistic 3D rendering."
     }],
-    extra_body={
-        "image_urls": ["https://example.com/product-photo.jpg"]
-    }
+    # Images are included in the message content array above
 )
 
 print(response.choices[0].message.content)
@@ -66,18 +66,18 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Convert this object into a 3D model using these reference angles. The first image shows the front, the second shows the side. Generate a clean 3D render from a new angle (three-quarter view from above) that combines both perspectives. Studio lighting, neutral background."
-      }
-    ],
-    "image_urls": [
-      "https://example.com/front-view.jpg",
-      "https://example.com/side-view.jpg"
+        "content": [
+              {"type": "text", "text": "Convert this object into a 3D model using these reference angles. The first image shows the front, the second shows the side. Generate a clean 3D render from a new angle (three-quarter view from above) that combines both perspectives. Studio lighting, neutral background."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/front-view.jpg"}},
+              {"type": "image_url", "image_url": {"url": "https://example.com/side-view.jpg"}}
+            ]
+          }
     ],
     "stream": false
   }'
 ```
 
-> `image_urls` is a top-level request parameter (not inside messages). Maximum 4 images.
+> Images are sent inside messages using the OpenAI multimodal content format. Maximum 4 images per request.
 
 ### Streaming
 
@@ -131,10 +131,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Convert this product photo into a 3D model render. Show the object from a three-quarter elevated angle that reveals the top and two sides. Maintain exact colors, materials, and proportions from the original photo. Clean white studio background, product photography lighting, photorealistic 3D render."
-      }
+        "content": [
+              {"type": "text", "text": "Convert this product photo into a 3D model render. Show the object from a three-quarter elevated angle that reveals the top and two sides. Maintain exact colors, materials, and proportions from the original photo. Clean white studio background, product photography lighting, photorealistic 3D render."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/headphones.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/headphones.jpg"],
     "stream": false
   }'
 ```
@@ -149,10 +151,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Convert this 2D character illustration into a 3D model render. Show a three-quarter view from the right side with slightly elevated camera. Maintain the character design, colors, and proportions from the original art. Stylized 3D render with soft cel-shading, neutral grey background."
-      }
+        "content": [
+              {"type": "text", "text": "Convert this 2D character illustration into a 3D model render. Show a three-quarter view from the right side with slightly elevated camera. Maintain the character design, colors, and proportions from the original art. Stylized 3D render with soft cel-shading, neutral grey background."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/character-concept.png"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/character-concept.png"],
     "stream": false
   }'
 ```
@@ -167,10 +171,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Convert this object into a 3D model and generate a turntable view showing 4 angles in a single image: front, right side, back, and left side. Arranged in a 2x2 grid. Same scale in each view, neutral grey background, consistent studio lighting, clean 3D render."
-      }
+        "content": [
+              {"type": "text", "text": "Convert this object into a 3D model and generate a turntable view showing 4 angles in a single image: front, right side, back, and left side. Arranged in a 2x2 grid. Same scale in each view, neutral grey background, consistent studio lighting, clean 3D render."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/sneaker-front.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/sneaker-front.jpg"],
     "stream": false
   }'
 ```
@@ -185,10 +191,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Convert this photo of a decorative column capital into a 3D model render. Show it from an isometric angle with soft directional lighting to emphasize the carved relief details. Clean background, architectural 3D visualization quality, accurate proportions."
-      }
+        "content": [
+              {"type": "text", "text": "Convert this photo of a decorative column capital into a 3D model render. Show it from an isometric angle with soft directional lighting to emphasize the carved relief details. Clean background, architectural 3D visualization quality, accurate proportions."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/column-capital.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/column-capital.jpg"],
     "stream": false
   }'
 ```

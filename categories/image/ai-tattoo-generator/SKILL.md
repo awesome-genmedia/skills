@@ -62,15 +62,17 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Create a tattoo design inspired by this image. Convert it to a blackwork tattoo style with bold outlines, stipple shading, and clean negative space. White background, designed for upper arm placement."
-      }
+        "content": [
+              {"type": "text", "text": "Create a tattoo design inspired by this image. Convert it to a blackwork tattoo style with bold outlines, stipple shading, and clean negative space. White background, designed for upper arm placement."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/inspiration-photo.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/inspiration-photo.jpg"],
     "stream": false
   }'
 ```
 
-> `image_urls` is a top-level request parameter (not inside messages). Maximum 4 images.
+> Images are sent inside messages using the OpenAI multimodal content format. Maximum 4 images per request.
 
 ### Streaming
 

@@ -22,12 +22,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Swap the face from the first image onto the person in the second image. Keep the lighting, skin tone, and expression natural."
-      }
-    ],
-    "image_urls": [
-      "https://example.com/source-face.jpg",
-      "https://example.com/target-photo.jpg"
+        "content": [
+              {"type": "text", "text": "Swap the face from the first image onto the person in the second image. Keep the lighting, skin tone, and expression natural."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/source-face.jpg"}},
+              {"type": "image_url", "image_url": {"url": "https://example.com/target-photo.jpg"}}
+            ]
+          }
     ],
     "stream": false
   }'
@@ -49,12 +49,7 @@ response = client.chat.completions.create(
         "role": "user",
         "content": "Swap the face from the first image onto the person in the second image. Keep the lighting, skin tone, and expression natural."
     }],
-    extra_body={
-        "image_urls": [
-            "https://example.com/source-face.jpg",
-            "https://example.com/target-photo.jpg"
-        ]
-    }
+    # Images are included in the message content array above
 )
 
 print(response.choices[0].message.content)
@@ -69,13 +64,18 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
   -H "Content-Type: application/json" \
   -H "X-API-Key: $EACHLABS_API_KEY" \
   -d '{
-    "messages": [{"role": "user", "content": "Swap the face from image one onto the person in image two, matching the lighting and angle perfectly"}],
-    "image_urls": ["https://example.com/my-face.jpg", "https://example.com/target-body.jpg"],
+    "messages": [{"role": "user", "content": [
+              {"type": "text", "text": "Swap the face from image one onto the person in image two, matching the lighting and angle perfectly"},
+              {"type": "image_url", "image_url": {"url": "https://example.com/my-face.jpg"}},
+              {"type": "image_url", "image_url": {"url": "https://example.com/target-body.jpg"}}
+            ]
+          }
+    ],
     "stream": false
   }'
 ```
 
-> `image_urls` is a top-level request parameter (not inside messages). Maximum 4 images.
+> Images are sent inside messages using the OpenAI multimodal content format. Maximum 4 images per request.
 
 ### Streaming
 
@@ -131,12 +131,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Take the face from the first photo and place it on the person in the second photo. The result should look like a natural portrait with proper skin tone matching and seamless blending around the edges."
-      }
-    ],
-    "image_urls": [
-      "https://example.com/person-a-headshot.jpg",
-      "https://example.com/person-b-portrait.jpg"
+        "content": [
+              {"type": "text", "text": "Take the face from the first photo and place it on the person in the second photo. The result should look like a natural portrait with proper skin tone matching and seamless blending around the edges."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/person-a-headshot.jpg"}},
+              {"type": "image_url", "image_url": {"url": "https://example.com/person-b-portrait.jpg"}}
+            ]
+          }
     ],
     "stream": false
   }'
@@ -152,12 +152,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Swap my face from the first image onto the person wearing the medieval knight armor in the second image. Keep the armor and background unchanged, only replace the face."
-      }
-    ],
-    "image_urls": [
-      "https://example.com/my-selfie.jpg",
-      "https://example.com/knight-portrait.jpg"
+        "content": [
+              {"type": "text", "text": "Swap my face from the first image onto the person wearing the medieval knight armor in the second image. Keep the armor and background unchanged, only replace the face."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/my-selfie.jpg"}},
+              {"type": "image_url", "image_url": {"url": "https://example.com/knight-portrait.jpg"}}
+            ]
+          }
     ],
     "stream": false
   }'
@@ -173,12 +173,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "In the group photo (second image), swap the face of the person on the far left with the face from the first image. Keep everyone else unchanged."
-      }
-    ],
-    "image_urls": [
-      "https://example.com/new-face.jpg",
-      "https://example.com/group-photo.jpg"
+        "content": [
+              {"type": "text", "text": "In the group photo (second image), swap the face of the person on the far left with the face from the first image. Keep everyone else unchanged."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/new-face.jpg"}},
+              {"type": "image_url", "image_url": {"url": "https://example.com/group-photo.jpg"}}
+            ]
+          }
     ],
     "stream": false
   }'
@@ -195,12 +195,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Swap the face from image one onto the person in image two. Natural blending, match skin tone."
-      }
-    ],
-    "image_urls": [
-      "https://example.com/source.jpg",
-      "https://example.com/target.jpg"
+        "content": [
+              {"type": "text", "text": "Swap the face from image one onto the person in image two. Natural blending, match skin tone."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/source.jpg"}},
+              {"type": "image_url", "image_url": {"url": "https://example.com/target.jpg"}}
+            ]
+          }
     ],
     "stream": false
   }'
@@ -221,12 +221,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
       },
       {
         "role": "user",
-        "content": "Good result but the skin tone looks slightly off. Please adjust the skin tone to better match the target photo lighting and make the blend around the jawline smoother."
-      }
-    ],
-    "image_urls": [
-      "https://example.com/source.jpg",
-      "https://example.com/target.jpg"
+        "content": [
+              {"type": "text", "text": "Good result but the skin tone looks slightly off. Please adjust the skin tone to better match the target photo lighting and make the blend around the jawline smoother."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/source.jpg"}},
+              {"type": "image_url", "image_url": {"url": "https://example.com/target.jpg"}}
+            ]
+          }
     ],
     "stream": false
   }'

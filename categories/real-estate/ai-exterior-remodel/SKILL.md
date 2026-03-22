@@ -22,10 +22,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Remodel this house exterior: replace the siding with dark charcoal James Hardie board-and-batten, add a natural cedar accent around the front entry, replace the roof with standing seam metal in matte black, and update the front door to a warm wood pivot door. Keep the house structure, driveway, and surrounding trees. Photorealistic exterior rendering, sunny day."
-      }
+        "content": [
+              {"type": "text", "text": "Remodel this house exterior: replace the siding with dark charcoal James Hardie board-and-batten, add a natural cedar accent around the front entry, replace the roof with standing seam metal in matte black, and update the front door to a warm wood pivot door. Keep the house structure, driveway, and surrounding trees. Photorealistic exterior rendering, sunny day."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/current-house.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/current-house.jpg"],
     "stream": false
   }'
 ```
@@ -46,9 +48,7 @@ response = client.chat.completions.create(
         "role": "user",
         "content": "Remodel this house exterior: replace the siding with dark charcoal James Hardie board-and-batten, add a natural cedar accent around the front entry, replace the roof with standing seam metal in matte black, and update the front door to a warm wood pivot door. Keep the house structure, driveway, and surrounding trees. Photorealistic exterior rendering, sunny day."
     }],
-    extra_body={
-        "image_urls": ["https://example.com/current-house.jpg"]
-    }
+    # Images are included in the message content array above
 )
 
 print(response.choices[0].message.content)
@@ -66,18 +66,18 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Remodel the house in the first image to match the architectural style and materials of the second image. Apply the same color scheme, siding type, and landscaping approach. Keep the original house footprint and lot. Photorealistic result."
-      }
-    ],
-    "image_urls": [
-      "https://example.com/my-house.jpg",
-      "https://example.com/dream-house-inspiration.jpg"
+        "content": [
+              {"type": "text", "text": "Remodel the house in the first image to match the architectural style and materials of the second image. Apply the same color scheme, siding type, and landscaping approach. Keep the original house footprint and lot. Photorealistic result."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/my-house.jpg"}},
+              {"type": "image_url", "image_url": {"url": "https://example.com/dream-house-inspiration.jpg"}}
+            ]
+          }
     ],
     "stream": false
   }'
 ```
 
-> `image_urls` is a top-level request parameter (not inside messages). Maximum 4 images.
+> Images are sent inside messages using the OpenAI multimodal content format. Maximum 4 images per request.
 
 ### Streaming
 
@@ -131,10 +131,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Repaint this house exterior: body color in Benjamin Moore Hale Navy (deep navy blue), trim and window frames in crisp white, front door in a bold yellow ochre. Keep everything else the same — roof, landscaping, driveway. Photorealistic, bright overcast day for accurate color."
-      }
+        "content": [
+              {"type": "text", "text": "Repaint this house exterior: body color in Benjamin Moore Hale Navy (deep navy blue), trim and window frames in crisp white, front door in a bold yellow ochre. Keep everything else the same — roof, landscaping, driveway. Photorealistic, bright overcast day for accurate color."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/white-house.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/white-house.jpg"],
     "stream": false
   }'
 ```
@@ -149,10 +151,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Transform this dated ranch house into a modern farmhouse: white board-and-batten siding, black-framed windows, a metal gable roof accent over the entryway, a covered porch with black steel columns, and updated landscaping with ornamental grasses and a flagstone path. Keep the house footprint. Photorealistic rendering, golden hour lighting."
-      }
+        "content": [
+              {"type": "text", "text": "Transform this dated ranch house into a modern farmhouse: white board-and-batten siding, black-framed windows, a metal gable roof accent over the entryway, a covered porch with black steel columns, and updated landscaping with ornamental grasses and a flagstone path. Keep the house footprint. Photorealistic rendering, golden hour lighting."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/dated-ranch.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/dated-ranch.jpg"],
     "stream": false
   }'
 ```
@@ -167,10 +171,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Improve the curb appeal of this property: add a landscaped front yard with a curved stone-edged walkway, layered garden beds with boxwood hedges and seasonal flowers, two symmetrical Japanese maple trees flanking the entry, landscape lighting along the path, and a new mailbox. Keep the house itself unchanged. Photorealistic, late afternoon soft light."
-      }
+        "content": [
+              {"type": "text", "text": "Improve the curb appeal of this property: add a landscaped front yard with a curved stone-edged walkway, layered garden beds with boxwood hedges and seasonal flowers, two symmetrical Japanese maple trees flanking the entry, landscape lighting along the path, and a new mailbox. Keep the house itself unchanged. Photorealistic, late afternoon soft light."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/plain-yard.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/plain-yard.jpg"],
     "stream": false
   }'
 ```

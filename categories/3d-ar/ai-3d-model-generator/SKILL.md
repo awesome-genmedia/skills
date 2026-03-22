@@ -62,15 +62,17 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Generate a 3D model based on this reference image. Recreate the object as a clean 3D render from a three-quarter view angle, maintaining the proportions, colors, and details. Neutral studio background, soft lighting."
-      }
+        "content": [
+              {"type": "text", "text": "Generate a 3D model based on this reference image. Recreate the object as a clean 3D render from a three-quarter view angle, maintaining the proportions, colors, and details. Neutral studio background, soft lighting."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/reference-object.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/reference-object.jpg"],
     "stream": false
   }'
 ```
 
-> `image_urls` is a top-level request parameter (not inside messages). Maximum 4 images.
+> Images are sent inside messages using the OpenAI multimodal content format. Maximum 4 images per request.
 
 ### Streaming
 

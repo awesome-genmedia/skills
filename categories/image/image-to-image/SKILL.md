@@ -22,10 +22,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Transform this photograph into a Studio Ghibli anime illustration. Keep the same composition, subjects, and scene but render everything in the warm, hand-painted anime art style with soft colors and gentle lighting."
-      }
+        "content": [
+              {"type": "text", "text": "Transform this photograph into a Studio Ghibli anime illustration. Keep the same composition, subjects, and scene but render everything in the warm, hand-painted anime art style with soft colors and gentle lighting."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/original-photo.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/original-photo.jpg"],
     "stream": false
   }'
 ```
@@ -46,9 +48,7 @@ response = client.chat.completions.create(
         "role": "user",
         "content": "Transform this photograph into a Studio Ghibli anime illustration. Keep the same composition, subjects, and scene but render everything in the warm, hand-painted anime art style with soft colors and gentle lighting."
     }],
-    extra_body={
-        "image_urls": ["https://example.com/original-photo.jpg"]
-    }
+    # Images are included in the message content array above
 )
 
 print(response.choices[0].message.content)
@@ -66,18 +66,18 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Take the composition and subject from the first image and apply the artistic style from the second image. Combine them into a cohesive artwork."
-      }
-    ],
-    "image_urls": [
-      "https://example.com/content-image.jpg",
-      "https://example.com/style-reference.jpg"
+        "content": [
+              {"type": "text", "text": "Take the composition and subject from the first image and apply the artistic style from the second image. Combine them into a cohesive artwork."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/content-image.jpg"}},
+              {"type": "image_url", "image_url": {"url": "https://example.com/style-reference.jpg"}}
+            ]
+          }
     ],
     "stream": false
   }'
 ```
 
-> `image_urls` is a top-level request parameter (not inside messages). Maximum 4 images.
+> Images are sent inside messages using the OpenAI multimodal content format. Maximum 4 images per request.
 
 ### Streaming
 
@@ -106,10 +106,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Transform this landscape photo into a classical oil painting in the style of the Hudson River School. Rich earth tones, visible impasto brushstrokes, dramatic chiaroscuro lighting, golden varnish warmth. Keep the composition but make it feel like a 19th-century masterpiece."
-      }
+        "content": [
+              {"type": "text", "text": "Transform this landscape photo into a classical oil painting in the style of the Hudson River School. Rich earth tones, visible impasto brushstrokes, dramatic chiaroscuro lighting, golden varnish warmth. Keep the composition but make it feel like a 19th-century masterpiece."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/valley-landscape.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/valley-landscape.jpg"],
     "stream": false
   }'
 ```
@@ -124,10 +126,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Turn this rough pencil sketch into a polished digital illustration. Add full color, clean lines, proper shading, and a detailed background. Fantasy art style with vibrant colors and dramatic lighting."
-      }
+        "content": [
+              {"type": "text", "text": "Turn this rough pencil sketch into a polished digital illustration. Add full color, clean lines, proper shading, and a detailed background. Fantasy art style with vibrant colors and dramatic lighting."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/character-sketch.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/character-sketch.jpg"],
     "stream": false
   }'
 ```
@@ -142,10 +146,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Reimagine this city street as a cyberpunk scene set in 2099. Add neon signs in Japanese and English, holographic advertisements, flying vehicles in the background, wet reflective streets, and a perpetual night sky with a pink-purple haze. Keep the same buildings and street layout."
-      }
+        "content": [
+              {"type": "text", "text": "Reimagine this city street as a cyberpunk scene set in 2099. Add neon signs in Japanese and English, holographic advertisements, flying vehicles in the background, wet reflective streets, and a perpetual night sky with a pink-purple haze. Keep the same buildings and street layout."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/city-street.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/city-street.jpg"],
     "stream": false
   }'
 ```
@@ -160,10 +166,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Transform this daytime photo to a nighttime scene. Add a starry sky, moonlight casting blue-silver shadows, warm light glowing from windows, and street lamps illuminating the path. Keep all the structures and composition identical."
-      }
+        "content": [
+              {"type": "text", "text": "Transform this daytime photo to a nighttime scene. Add a starry sky, moonlight casting blue-silver shadows, warm light glowing from windows, and street lamps illuminating the path. Keep all the structures and composition identical."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/daytime-house.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/daytime-house.jpg"],
     "stream": false
   }'
 ```

@@ -62,15 +62,17 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Transform this photo into a Pixar-style 3D cartoon avatar. Keep the likeness, exaggerate features slightly, big expressive eyes, smooth render, colorful background, friendly expression"
-      }
+        "content": [
+              {"type": "text", "text": "Transform this photo into a Pixar-style 3D cartoon avatar. Keep the likeness, exaggerate features slightly, big expressive eyes, smooth render, colorful background, friendly expression"},
+              {"type": "image_url", "image_url": {"url": "https://example.com/my-photo.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/my-photo.jpg"],
     "stream": false
   }'
 ```
 
-> `image_urls` is a top-level request parameter (not inside messages). Maximum 4 images.
+> Images are sent inside messages using the OpenAI multimodal content format. Maximum 4 images per request.
 
 ### Streaming
 
@@ -151,10 +153,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Convert this person into a Disney-style cartoon character. Keep their hairstyle and facial features recognizable, add big expressive eyes, smooth skin, vibrant colors, simple clean background"
-      }
+        "content": [
+              {"type": "text", "text": "Convert this person into a Disney-style cartoon character. Keep their hairstyle and facial features recognizable, add big expressive eyes, smooth skin, vibrant colors, simple clean background"},
+              {"type": "image_url", "image_url": {"url": "https://example.com/portrait.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/portrait.jpg"],
     "stream": false
   }'
 ```

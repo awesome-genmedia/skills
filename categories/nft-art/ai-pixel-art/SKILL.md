@@ -60,15 +60,17 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Convert this character design into pixel art: match the colors and proportions but render in a clean 16-bit pixel art style with visible pixel grid, game sprite aesthetic"
-      }
+        "content": [
+              {"type": "text", "text": "Convert this character design into pixel art: match the colors and proportions but render in a clean 16-bit pixel art style with visible pixel grid, game sprite aesthetic"},
+              {"type": "image_url", "image_url": {"url": "https://example.com/character-concept.png"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/character-concept.png"],
     "stream": false
   }'
 ```
 
-> `image_urls` is a top-level request parameter (not inside messages). Maximum 4 images.
+> Images are sent inside messages using the OpenAI multimodal content format. Maximum 4 images per request.
 
 ### Streaming
 

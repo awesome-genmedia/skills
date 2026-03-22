@@ -22,10 +22,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Colorize this black and white photograph with realistic natural colors: accurate skin tones, believable clothing colors appropriate to the era, natural sky and vegetation colors, maintain the original photographic quality and composition"
-      }
+        "content": [
+              {"type": "text", "text": "Colorize this black and white photograph with realistic natural colors: accurate skin tones, believable clothing colors appropriate to the era, natural sky and vegetation colors, maintain the original photographic quality and composition"},
+              {"type": "image_url", "image_url": {"url": "https://example.com/black-and-white-photo.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/black-and-white-photo.jpg"],
     "stream": false
   }'
 ```
@@ -46,7 +48,7 @@ response = client.chat.completions.create(
         "role": "user",
         "content": "Colorize this black and white photograph with realistic natural colors: accurate skin tones, believable clothing colors appropriate to the era, natural sky and vegetation colors, maintain the original photographic quality and composition"
     }],
-    extra_body={"image_urls": ["https://example.com/black-and-white-photo.jpg"]}
+    # Images are included in the message content array above
 )
 
 print(response.choices[0].message.content)
@@ -76,10 +78,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Colorize this 1940s black and white portrait: natural warm skin tones, the subject is wearing a dark navy suit with a white shirt, brown hair, soft warm studio lighting tones, keep the classic portrait feel while adding realistic color"
-      }
+        "content": [
+              {"type": "text", "text": "Colorize this 1940s black and white portrait: natural warm skin tones, the subject is wearing a dark navy suit with a white shirt, brown hair, soft warm studio lighting tones, keep the classic portrait feel while adding realistic color"},
+              {"type": "image_url", "image_url": {"url": "https://example.com/vintage-portrait-bw.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/vintage-portrait-bw.jpg"],
     "stream": false
   }'
 ```
@@ -94,10 +98,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Colorize this 1920s city street photograph: period-accurate colors for brick buildings in warm red-brown, grey cobblestone streets, vintage automobiles in dark greens and blacks, pedestrians in muted earth-toned clothing, overcast sky, historically authentic color treatment"
-      }
+        "content": [
+              {"type": "text", "text": "Colorize this 1920s city street photograph: period-accurate colors for brick buildings in warm red-brown, grey cobblestone streets, vintage automobiles in dark greens and blacks, pedestrians in muted earth-toned clothing, overcast sky, historically authentic color treatment"},
+              {"type": "image_url", "image_url": {"url": "https://example.com/1920s-street-bw.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/1920s-street-bw.jpg"],
     "stream": false
   }'
 ```
@@ -112,10 +118,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Colorize this black and white landscape photograph: lush green forests, blue sky with white clouds, brown earth tones on the mountain face, golden sunlight on the meadow in the foreground, natural vivid colors, photorealistic colorization"
-      }
+        "content": [
+              {"type": "text", "text": "Colorize this black and white landscape photograph: lush green forests, blue sky with white clouds, brown earth tones on the mountain face, golden sunlight on the meadow in the foreground, natural vivid colors, photorealistic colorization"},
+              {"type": "image_url", "image_url": {"url": "https://example.com/landscape-bw.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/landscape-bw.jpg"],
     "stream": false
   }'
 ```

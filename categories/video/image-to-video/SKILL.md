@@ -22,10 +22,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Animate this image: gentle wind blowing through the trees, leaves rustling, clouds drifting slowly across the sky, subtle camera push-in, cinematic, natural motion"
-      }
+        "content": [
+              {"type": "text", "text": "Animate this image: gentle wind blowing through the trees, leaves rustling, clouds drifting slowly across the sky, subtle camera push-in, cinematic, natural motion"},
+              {"type": "image_url", "image_url": {"url": "https://example.com/landscape-photo.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/landscape-photo.jpg"],
     "stream": false
   }'
 ```
@@ -46,15 +48,13 @@ response = client.chat.completions.create(
         "role": "user",
         "content": "Animate this image: gentle wind blowing through the trees, leaves rustling, clouds drifting slowly across the sky, subtle camera push-in, cinematic, natural motion"
     }],
-    extra_body={
-        "image_urls": ["https://example.com/landscape-photo.jpg"]
-    }
+    # Images are included in the message content array above
 )
 
 print(response.choices[0].message.content)
 ```
 
-> `image_urls` is a top-level request parameter (not inside messages). Maximum 4 images.
+> Images are sent inside messages using the OpenAI multimodal content format. Maximum 4 images per request.
 
 ### Streaming
 
@@ -83,10 +83,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Animate this portrait: the person slowly turns their head to face the camera, a subtle smile appears, hair moves gently as if in a light breeze, natural blinking, soft lighting remains consistent, cinematic"
-      }
+        "content": [
+              {"type": "text", "text": "Animate this portrait: the person slowly turns their head to face the camera, a subtle smile appears, hair moves gently as if in a light breeze, natural blinking, soft lighting remains consistent, cinematic"},
+              {"type": "image_url", "image_url": {"url": "https://example.com/portrait.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/portrait.jpg"],
     "stream": false
   }'
 ```
@@ -101,10 +103,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Animate this beach photo: ocean waves rolling in and crashing on the shore, foam sliding up the sand, seagulls flying in the background, palm trees swaying in wind, camera static, ambient natural motion"
-      }
+        "content": [
+              {"type": "text", "text": "Animate this beach photo: ocean waves rolling in and crashing on the shore, foam sliding up the sand, seagulls flying in the background, palm trees swaying in wind, camera static, ambient natural motion"},
+              {"type": "image_url", "image_url": {"url": "https://example.com/beach-sunset.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/beach-sunset.jpg"],
     "stream": false
   }'
 ```
@@ -119,10 +123,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Animate this fantasy illustration: the dragon spreads its wings slowly, fire flickers from torches on the castle walls, clouds drift behind the mountains, magical sparkles float in the air, smooth animation, maintain the artistic style"
-      }
+        "content": [
+              {"type": "text", "text": "Animate this fantasy illustration: the dragon spreads its wings slowly, fire flickers from torches on the castle walls, clouds drift behind the mountains, magical sparkles float in the air, smooth animation, maintain the artistic style"},
+              {"type": "image_url", "image_url": {"url": "https://example.com/fantasy-castle.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/fantasy-castle.jpg"],
     "stream": false
   }'
 ```
@@ -137,10 +143,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Animate this product photo: camera slowly orbits around the product, studio lighting highlights shift as the angle changes, reflections move on the surface, premium commercial feel, smooth 360-degree rotation"
-      }
+        "content": [
+              {"type": "text", "text": "Animate this product photo: camera slowly orbits around the product, studio lighting highlights shift as the angle changes, reflections move on the surface, premium commercial feel, smooth 360-degree rotation"},
+              {"type": "image_url", "image_url": {"url": "https://example.com/product-hero.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/product-hero.jpg"],
     "stream": false
   }'
 ```

@@ -22,10 +22,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Enhance this photo: improve sharpness, fix the underexposed shadows, boost color vibrancy slightly, and reduce noise while preserving natural skin texture."
-      }
+        "content": [
+              {"type": "text", "text": "Enhance this photo: improve sharpness, fix the underexposed shadows, boost color vibrancy slightly, and reduce noise while preserving natural skin texture."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/dark-noisy-photo.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/dark-noisy-photo.jpg"],
     "stream": false
   }'
 ```
@@ -46,15 +48,13 @@ response = client.chat.completions.create(
         "role": "user",
         "content": "Enhance this photo: improve sharpness, fix the underexposed shadows, boost color vibrancy slightly, and reduce noise while preserving natural skin texture."
     }],
-    extra_body={
-        "image_urls": ["https://example.com/dark-noisy-photo.jpg"]
-    }
+    # Images are included in the message content array above
 )
 
 print(response.choices[0].message.content)
 ```
 
-> `image_urls` is a top-level request parameter (not inside messages). Maximum 4 images.
+> Images are sent inside messages using the OpenAI multimodal content format. Maximum 4 images per request.
 
 ### Streaming
 
@@ -84,10 +84,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "This photo was taken in low light. Brighten the shadows without blowing out highlights, reduce the visible noise and grain, improve color accuracy, and sharpen the subject. Keep the moody atmosphere but make details visible."
-      }
+        "content": [
+              {"type": "text", "text": "This photo was taken in low light. Brighten the shadows without blowing out highlights, reduce the visible noise and grain, improve color accuracy, and sharpen the subject. Keep the moody atmosphere but make details visible."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/lowlight-event.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/lowlight-event.jpg"],
     "stream": false
   }'
 ```
@@ -102,10 +104,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Restore this old photograph from the 1970s. Remove the yellowing and faded color cast, fix scratches and dust spots, sharpen facial details, and bring the colors back to a natural look. Preserve the original composition."
-      }
+        "content": [
+              {"type": "text", "text": "Restore this old photograph from the 1970s. Remove the yellowing and faded color cast, fix scratches and dust spots, sharpen facial details, and bring the colors back to a natural look. Preserve the original composition."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/old-family-1975.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/old-family-1975.jpg"],
     "stream": false
   }'
 ```
@@ -120,10 +124,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Enhance this product photo for e-commerce: correct the slightly warm color cast to neutral, increase sharpness of the product details, ensure the white background is pure white, and boost contrast slightly for a clean commercial look."
-      }
+        "content": [
+              {"type": "text", "text": "Enhance this product photo for e-commerce: correct the slightly warm color cast to neutral, increase sharpness of the product details, ensure the white background is pure white, and boost contrast slightly for a clean commercial look."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/product-raw.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/product-raw.jpg"],
     "stream": false
   }'
 ```

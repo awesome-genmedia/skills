@@ -22,10 +22,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Enhance this photograph with HDR processing: recover details in the dark shadow areas, bring back blown-out highlights in the sky, boost local contrast for texture detail, create a natural HDR look that is vivid but not over-processed, maintain realistic colors"
-      }
+        "content": [
+              {"type": "text", "text": "Enhance this photograph with HDR processing: recover details in the dark shadow areas, bring back blown-out highlights in the sky, boost local contrast for texture detail, create a natural HDR look that is vivid but not over-processed, maintain realistic colors"},
+              {"type": "image_url", "image_url": {"url": "https://example.com/underexposed-photo.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/underexposed-photo.jpg"],
     "stream": false
   }'
 ```
@@ -46,7 +48,7 @@ response = client.chat.completions.create(
         "role": "user",
         "content": "Enhance this photograph with HDR processing: recover details in the dark shadow areas, bring back blown-out highlights in the sky, boost local contrast for texture detail, create a natural HDR look that is vivid but not over-processed, maintain realistic colors"
     }],
-    extra_body={"image_urls": ["https://example.com/underexposed-photo.jpg"]}
+    # Images are included in the message content array above
 )
 
 print(response.choices[0].message.content)
@@ -76,10 +78,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Apply HDR enhancement to this sunset landscape: recover the foreground details lost in shadow, bring texture back to the bright clouds, enhance the warm golden tones, boost the dramatic sky colors while keeping the rocks and water in the foreground well-exposed, natural dramatic HDR look"
-      }
+        "content": [
+              {"type": "text", "text": "Apply HDR enhancement to this sunset landscape: recover the foreground details lost in shadow, bring texture back to the bright clouds, enhance the warm golden tones, boost the dramatic sky colors while keeping the rocks and water in the foreground well-exposed, natural dramatic HDR look"},
+              {"type": "image_url", "image_url": {"url": "https://example.com/sunset-landscape.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/sunset-landscape.jpg"],
     "stream": false
   }'
 ```
@@ -94,10 +98,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Enhance this interior architecture photograph with HDR: balance the bright windows with the dark interior, bring out texture in the wooden beams and stone walls, make the room feel evenly lit without losing the dramatic window light, professional real estate HDR style"
-      }
+        "content": [
+              {"type": "text", "text": "Enhance this interior architecture photograph with HDR: balance the bright windows with the dark interior, bring out texture in the wooden beams and stone walls, make the room feel evenly lit without losing the dramatic window light, professional real estate HDR style"},
+              {"type": "image_url", "image_url": {"url": "https://example.com/interior-photo.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/interior-photo.jpg"],
     "stream": false
   }'
 ```
@@ -112,10 +118,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Subtly enhance this portrait with HDR processing: gently lift the shadows under the chin and around the eyes, add micro-contrast for skin texture detail, brighten the catch lights in the eyes, warm the overall tone slightly, keep the enhancement natural and flattering"
-      }
+        "content": [
+              {"type": "text", "text": "Subtly enhance this portrait with HDR processing: gently lift the shadows under the chin and around the eyes, add micro-contrast for skin texture detail, brighten the catch lights in the eyes, warm the overall tone slightly, keep the enhancement natural and flattering"},
+              {"type": "image_url", "image_url": {"url": "https://example.com/portrait-photo.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/portrait-photo.jpg"],
     "stream": false
   }'
 ```

@@ -39,10 +39,11 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Animate this winter cabin scene: smoke gently curling from the chimney, northern lights slowly shifting colors and dancing across the sky, snowflakes drifting down softly, a warm flicker of firelight in the windows, slow dolly-in camera movement, peaceful and atmospheric"
-      }
+        "content": [
+              {"type": "text", "text": "Animate this winter cabin scene: smoke gently curling from the chimney, northern lights slowly shifting colors and dancing across the sky, snowflakes drifting down softly, a warm flicker of firelight in the windows, slow dolly-in camera movement, peaceful and atmospheric"}
+            ]
+          }
     ],
-    "image_urls": ["IMAGE_URL_FROM_STEP_1"],
     "stream": false
   }'
 ```
@@ -95,7 +96,7 @@ video_response = client.chat.completions.create(
         "role": "user",
         "content": "Animate this scene: northern lights dancing, smoke curling from chimney, snowflakes drifting, slow cinematic camera movement"
     }],
-    extra_body={"image_urls": ["IMAGE_URL_FROM_STEP_1"]}
+    # Images are included in the message content array above
 )
 print("Video:", video_response.choices[0].message.content)
 
@@ -144,8 +145,11 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
   -H "Content-Type: application/json" \
   -H "X-API-Key: $EACHLABS_API_KEY" \
   -d '{
-    "messages": [{"role": "user", "content": "Animate this storm scene: wheat field swaying dramatically in gusting wind, lightning flash illuminating the clouds, rain beginning to fall, camera slowly tracking forward toward the farmhouse, cinematic stormy atmosphere"}],
-    "image_urls": ["IMAGE_URL"],
+    "messages": [{"role": "user", "content": [
+              {"type": "text", "text": "Animate this storm scene: wheat field swaying dramatically in gusting wind, lightning flash illuminating the clouds, rain beginning to fall, camera slowly tracking forward toward the farmhouse, cinematic stormy atmosphere"}
+            ]
+          }
+    ],
     "stream": false
   }'
 ```

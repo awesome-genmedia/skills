@@ -22,10 +22,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Enhance this portrait with natural beauty retouching. Smooth the skin while keeping texture, brighten the eyes, whiten teeth slightly, and even out the skin tone. Keep it looking natural, not overly filtered."
-      }
+        "content": [
+              {"type": "text", "text": "Enhance this portrait with natural beauty retouching. Smooth the skin while keeping texture, brighten the eyes, whiten teeth slightly, and even out the skin tone. Keep it looking natural, not overly filtered."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/portrait.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/portrait.jpg"],
     "stream": false
   }'
 ```
@@ -46,9 +48,7 @@ response = client.chat.completions.create(
         "role": "user",
         "content": "Enhance this portrait with natural beauty retouching. Smooth the skin while keeping texture, brighten the eyes, whiten teeth slightly, and even out the skin tone. Keep it looking natural, not overly filtered."
     }],
-    extra_body={
-        "image_urls": ["https://example.com/portrait.jpg"]
-    }
+    # Images are included in the message content array above
 )
 
 print(response.choices[0].message.content)
@@ -61,13 +61,17 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
   -H "Content-Type: application/json" \
   -H "X-API-Key: $EACHLABS_API_KEY" \
   -d '{
-    "messages": [{"role": "user", "content": "Apply beauty retouching to this photo: smooth skin, remove blemishes, brighten eyes, keep it natural and realistic"}],
-    "image_urls": ["https://example.com/selfie.jpg"],
+    "messages": [{"role": "user", "content": [
+              {"type": "text", "text": "Apply beauty retouching to this photo: smooth skin, remove blemishes, brighten eyes, keep it natural and realistic"},
+              {"type": "image_url", "image_url": {"url": "https://example.com/selfie.jpg"}}
+            ]
+          }
+    ],
     "stream": false
   }'
 ```
 
-> `image_urls` is a top-level request parameter (not inside messages). Maximum 4 images.
+> Images are sent inside messages using the OpenAI multimodal content format. Maximum 4 images per request.
 
 ### Streaming
 
@@ -119,10 +123,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Retouch this professional headshot. Smooth skin lightly while preserving pore texture, remove any blemishes, reduce dark circles under the eyes, even out skin tone, and add a subtle warmth to the overall color. Corporate headshot quality."
-      }
+        "content": [
+              {"type": "text", "text": "Retouch this professional headshot. Smooth skin lightly while preserving pore texture, remove any blemishes, reduce dark circles under the eyes, even out skin tone, and add a subtle warmth to the overall color. Corporate headshot quality."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/headshot-raw.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/headshot-raw.jpg"],
     "stream": false
   }'
 ```
@@ -137,10 +143,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Enhance this selfie for Instagram. Brighten the overall image, smooth skin naturally, make eyes pop with slight brightening, whiten teeth a touch, and give the photo a warm golden-hour glow. Should look effortlessly good, not obviously edited."
-      }
+        "content": [
+              {"type": "text", "text": "Enhance this selfie for Instagram. Brighten the overall image, smooth skin naturally, make eyes pop with slight brightening, whiten teeth a touch, and give the photo a warm golden-hour glow. Should look effortlessly good, not obviously edited."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/casual-selfie.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/casual-selfie.jpg"],
     "stream": false
   }'
 ```
@@ -155,10 +163,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Apply high-end magazine beauty retouching to this portrait. Flawless skin with very smooth texture, bright vivid eyes, perfectly white teeth, defined cheekbones with subtle contouring, and luminous skin glow. Vogue editorial style."
-      }
+        "content": [
+              {"type": "text", "text": "Apply high-end magazine beauty retouching to this portrait. Flawless skin with very smooth texture, bright vivid eyes, perfectly white teeth, defined cheekbones with subtle contouring, and luminous skin glow. Vogue editorial style."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/studio-portrait.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/studio-portrait.jpg"],
     "stream": false
   }'
 ```
@@ -173,10 +183,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Apply very subtle retouching to this photo. Just remove the few visible blemishes, slightly reduce the redness around the nose, and brighten the under-eye area. Everything else should stay exactly as-is. The person should not be able to tell the photo was edited."
-      }
+        "content": [
+              {"type": "text", "text": "Apply very subtle retouching to this photo. Just remove the few visible blemishes, slightly reduce the redness around the nose, and brighten the under-eye area. Everything else should stay exactly as-is. The person should not be able to tell the photo was edited."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/natural-photo.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/natural-photo.jpg"],
     "stream": false
   }'
 ```
@@ -192,10 +204,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Remove blemishes and even out skin tone in this portrait. Do not smooth the skin yet, just fix spots and discoloration. Keep everything else untouched."
-      }
+        "content": [
+              {"type": "text", "text": "Remove blemishes and even out skin tone in this portrait. Do not smooth the skin yet, just fix spots and discoloration. Keep everything else untouched."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/raw-portrait.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/raw-portrait.jpg"],
     "stream": false
   }'
 
@@ -207,10 +221,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Now apply natural beauty enhancement to this portrait: light skin smoothing with texture preserved, brighten the eyes, whiten teeth slightly, reduce under-eye shadows, and add a gentle warm glow. Professional but natural result."
-      }
+        "content": [
+              {"type": "text", "text": "Now apply natural beauty enhancement to this portrait: light skin smoothing with texture preserved, brighten the eyes, whiten teeth slightly, reduce under-eye shadows, and add a gentle warm glow. Professional but natural result."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/corrected-portrait.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/corrected-portrait.jpg"],
     "stream": false
   }'
 ```

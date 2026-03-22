@@ -22,10 +22,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Create a fun caricature of this person. Exaggerate their most prominent features in a friendly, humorous way. Colorful cartoon style with a white background."
-      }
+        "content": [
+              {"type": "text", "text": "Create a fun caricature of this person. Exaggerate their most prominent features in a friendly, humorous way. Colorful cartoon style with a white background."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/headshot.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/headshot.jpg"],
     "stream": false
   }'
 ```
@@ -46,9 +48,7 @@ response = client.chat.completions.create(
         "role": "user",
         "content": "Create a fun caricature of this person. Exaggerate their most prominent features in a friendly, humorous way. Colorful cartoon style with a white background."
     }],
-    extra_body={
-        "image_urls": ["https://example.com/headshot.jpg"]
-    }
+    # Images are included in the message content array above
 )
 
 print(response.choices[0].message.content)
@@ -61,13 +61,17 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
   -H "Content-Type: application/json" \
   -H "X-API-Key: $EACHLABS_API_KEY" \
   -d '{
-    "messages": [{"role": "user", "content": "Turn this person into a caricature cartoon with exaggerated features, comic book style, vibrant colors"}],
-    "image_urls": ["https://example.com/photo.jpg"],
+    "messages": [{"role": "user", "content": [
+              {"type": "text", "text": "Turn this person into a caricature cartoon with exaggerated features, comic book style, vibrant colors"},
+              {"type": "image_url", "image_url": {"url": "https://example.com/photo.jpg"}}
+            ]
+          }
+    ],
     "stream": false
   }'
 ```
 
-> `image_urls` is a top-level request parameter (not inside messages). Maximum 4 images.
+> Images are sent inside messages using the OpenAI multimodal content format. Maximum 4 images per request.
 
 ### Streaming
 
@@ -127,10 +131,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Create a classic hand-drawn style caricature of this person. Big exaggerated head on a small body, emphasize their smile and eyes. They are holding a paintbrush and standing next to an easel. Colorful, fun, white background."
-      }
+        "content": [
+              {"type": "text", "text": "Create a classic hand-drawn style caricature of this person. Big exaggerated head on a small body, emphasize their smile and eyes. They are holding a paintbrush and standing next to an easel. Colorful, fun, white background."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/friend-photo.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/friend-photo.jpg"],
     "stream": false
   }'
 ```
@@ -145,10 +151,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Transform this person into an anime character. Large expressive eyes, stylized spiky hair matching their hair color, manga shading, dynamic pose with sparkle effects. Keep their distinctive features recognizable in the anime style."
-      }
+        "content": [
+              {"type": "text", "text": "Transform this person into an anime character. Large expressive eyes, stylized spiky hair matching their hair color, manga shading, dynamic pose with sparkle effects. Keep their distinctive features recognizable in the anime style."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/selfie.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/selfie.jpg"],
     "stream": false
   }'
 ```
@@ -163,10 +171,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Turn this person into a Pixar-style 3D animated character. Slightly oversized head, big warm eyes, friendly expression, smooth stylized skin. Place them in front of a colorful background. Keep their hairstyle and clothing recognizable."
-      }
+        "content": [
+              {"type": "text", "text": "Turn this person into a Pixar-style 3D animated character. Slightly oversized head, big warm eyes, friendly expression, smooth stylized skin. Place them in front of a colorful background. Keep their hairstyle and clothing recognizable."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/portrait.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/portrait.jpg"],
     "stream": false
   }'
 ```
@@ -181,10 +191,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Create a pop art portrait of this person in the style of Andy Warhol. Bold flat colors, high contrast, halftone dot pattern, four-panel grid with different color combinations: pink/yellow, blue/green, orange/purple, red/teal."
-      }
+        "content": [
+              {"type": "text", "text": "Create a pop art portrait of this person in the style of Andy Warhol. Bold flat colors, high contrast, halftone dot pattern, four-panel grid with different color combinations: pink/yellow, blue/green, orange/purple, red/teal."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/face-photo.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/face-photo.jpg"],
     "stream": false
   }'
 ```
@@ -200,10 +212,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Create a clean cartoon avatar of this person. Flat vector illustration style, simplified features but recognizable, circular crop suitable for a profile picture, vibrant solid color background."
-      }
+        "content": [
+              {"type": "text", "text": "Create a clean cartoon avatar of this person. Flat vector illustration style, simplified features but recognizable, circular crop suitable for a profile picture, vibrant solid color background."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/my-photo.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/my-photo.jpg"],
     "stream": false
   }'
 
@@ -215,10 +229,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Create a cartoon avatar of this person in a professional style. Wearing a blazer, subtle smile, clean lines, minimal detail, dark blue background, suitable for a LinkedIn or business profile."
-      }
+        "content": [
+              {"type": "text", "text": "Create a cartoon avatar of this person in a professional style. Wearing a blazer, subtle smile, clean lines, minimal detail, dark blue background, suitable for a LinkedIn or business profile."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/my-photo.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/my-photo.jpg"],
     "stream": false
   }'
 
@@ -230,10 +246,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Create an anime chibi version of this person. Oversized head, tiny body, big sparkly eyes, excited expression, wearing headphones and holding a game controller. Colorful pastel background with stars."
-      }
+        "content": [
+              {"type": "text", "text": "Create an anime chibi version of this person. Oversized head, tiny body, big sparkly eyes, excited expression, wearing headphones and holding a game controller. Colorful pastel background with stars."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/my-photo.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/my-photo.jpg"],
     "stream": false
   }'
 ```

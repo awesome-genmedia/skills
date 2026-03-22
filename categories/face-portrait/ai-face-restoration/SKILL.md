@@ -22,10 +22,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Restore this old damaged family photo. Fix the scratches, remove the fading and yellowing, sharpen the faces, and enhance the overall quality to look like a modern photograph while preserving the original composition."
-      }
+        "content": [
+              {"type": "text", "text": "Restore this old damaged family photo. Fix the scratches, remove the fading and yellowing, sharpen the faces, and enhance the overall quality to look like a modern photograph while preserving the original composition."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/old-damaged-photo.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/old-damaged-photo.jpg"],
     "stream": false
   }'
 ```
@@ -46,9 +48,7 @@ response = client.chat.completions.create(
         "role": "user",
         "content": "Restore this old damaged family photo. Fix the scratches, remove the fading and yellowing, sharpen the faces, and enhance the overall quality to look like a modern photograph while preserving the original composition."
     }],
-    extra_body={
-        "image_urls": ["https://example.com/old-damaged-photo.jpg"]
-    }
+    # Images are included in the message content array above
 )
 
 print(response.choices[0].message.content)
@@ -61,13 +61,17 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
   -H "Content-Type: application/json" \
   -H "X-API-Key: $EACHLABS_API_KEY" \
   -d '{
-    "messages": [{"role": "user", "content": "Restore and enhance this blurry low-resolution face photo. Sharpen all facial details, improve clarity, and upscale to high quality"}],
-    "image_urls": ["https://example.com/blurry-face.jpg"],
+    "messages": [{"role": "user", "content": [
+              {"type": "text", "text": "Restore and enhance this blurry low-resolution face photo. Sharpen all facial details, improve clarity, and upscale to high quality"},
+              {"type": "image_url", "image_url": {"url": "https://example.com/blurry-face.jpg"}}
+            ]
+          }
+    ],
     "stream": false
   }'
 ```
 
-> `image_urls` is a top-level request parameter (not inside messages). Maximum 4 images.
+> Images are sent inside messages using the OpenAI multimodal content format. Maximum 4 images per request.
 
 ### Streaming
 
@@ -125,10 +129,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Restore this 1960s family photograph. It has multiple scratches across the surface, yellowed with age, and the faces have lost detail. Remove all scratches, correct the yellowing to natural colors, sharpen the faces so individual features are clear, and enhance the overall resolution. Keep the vintage clothing and setting accurate."
-      }
+        "content": [
+              {"type": "text", "text": "Restore this 1960s family photograph. It has multiple scratches across the surface, yellowed with age, and the faces have lost detail. Remove all scratches, correct the yellowing to natural colors, sharpen the faces so individual features are clear, and enhance the overall resolution. Keep the vintage clothing and setting accurate."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/1960s-family.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/1960s-family.jpg"],
     "stream": false
   }'
 ```
@@ -143,10 +149,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "This is a very low-resolution, blurry face photo, probably from an old phone camera. Upscale it to high resolution, sharpen all facial features including eyes, nose, lips, and eyebrows. Recover skin texture and hair detail. Make it look like it was taken with a modern camera."
-      }
+        "content": [
+              {"type": "text", "text": "This is a very low-resolution, blurry face photo, probably from an old phone camera. Upscale it to high resolution, sharpen all facial features including eyes, nose, lips, and eyebrows. Recover skin texture and hair detail. Make it look like it was taken with a modern camera."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/low-res-face.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/low-res-face.jpg"],
     "stream": false
   }'
 ```
@@ -161,10 +169,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "This photo has water damage with warping and discoloration stains, especially in the lower half. Restore the damaged areas, fix the color staining, straighten any warped features, and recover the original appearance. The subject face in the upper portion is partially affected too."
-      }
+        "content": [
+              {"type": "text", "text": "This photo has water damage with warping and discoloration stains, especially in the lower half. Restore the damaged areas, fix the color staining, straighten any warped features, and recover the original appearance. The subject face in the upper portion is partially affected too."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/water-damaged.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/water-damaged.jpg"],
     "stream": false
   }'
 ```
@@ -179,10 +189,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Restore and colorize this black and white portrait from the 1940s. Sharpen the face, enhance details, and add natural realistic colors: skin tones, hair color matching the era, colorize the clothing appropriately for the 1940s. Keep it photorealistic, not painted-looking."
-      }
+        "content": [
+              {"type": "text", "text": "Restore and colorize this black and white portrait from the 1940s. Sharpen the face, enhance details, and add natural realistic colors: skin tones, hair color matching the era, colorize the clothing appropriately for the 1940s. Keep it photorealistic, not painted-looking."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/bw-1940s-portrait.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/bw-1940s-portrait.jpg"],
     "stream": false
   }'
 ```
@@ -198,10 +210,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Remove all scratches, tears, and physical damage from this old photo. Do not change the resolution or colors yet, just clean up the damage artifacts."
-      }
+        "content": [
+              {"type": "text", "text": "Remove all scratches, tears, and physical damage from this old photo. Do not change the resolution or colors yet, just clean up the damage artifacts."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/damaged-original.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/damaged-original.jpg"],
     "stream": false
   }'
 
@@ -213,10 +227,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Upscale and enhance this restored photo. Sharpen all faces, improve resolution, correct the faded colors to look vibrant and natural, and enhance overall clarity. Preserve the original composition exactly."
-      }
+        "content": [
+              {"type": "text", "text": "Upscale and enhance this restored photo. Sharpen all faces, improve resolution, correct the faded colors to look vibrant and natural, and enhance overall clarity. Preserve the original composition exactly."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/cleaned-photo.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/cleaned-photo.jpg"],
     "stream": false
   }'
 
@@ -228,10 +244,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Apply final color correction to this restored photo. Balance the white point, ensure natural skin tones, and adjust contrast for a clean modern look. Do not change the composition or faces."
-      }
+        "content": [
+              {"type": "text", "text": "Apply final color correction to this restored photo. Balance the white point, ensure natural skin tones, and adjust contrast for a clean modern look. Do not change the composition or faces."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/enhanced-photo.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/enhanced-photo.jpg"],
     "stream": false
   }'
 ```

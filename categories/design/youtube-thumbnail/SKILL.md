@@ -62,15 +62,17 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Create a YouTube thumbnail using this video frame as a base. Add dramatic lighting, increase contrast, make the background darker and more cinematic, 16:9 aspect ratio."
-      }
+        "content": [
+              {"type": "text", "text": "Create a YouTube thumbnail using this video frame as a base. Add dramatic lighting, increase contrast, make the background darker and more cinematic, 16:9 aspect ratio."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/video-frame.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/video-frame.jpg"],
     "stream": false
   }'
 ```
 
-> `image_urls` is a top-level request parameter (not inside messages). Maximum 4 images.
+> Images are sent inside messages using the OpenAI multimodal content format. Maximum 4 images per request.
 
 ### Streaming
 

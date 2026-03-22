@@ -22,10 +22,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Apply an AR filter effect to this face photo: add glowing butterfly wings framing the face, tiny floating sparkles around the head, and soft pastel rainbow light streaks across the cheeks. Dreamy ethereal effect, high quality, natural face preserved underneath."
-      }
+        "content": [
+              {"type": "text", "text": "Apply an AR filter effect to this face photo: add glowing butterfly wings framing the face, tiny floating sparkles around the head, and soft pastel rainbow light streaks across the cheeks. Dreamy ethereal effect, high quality, natural face preserved underneath."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/selfie.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/selfie.jpg"],
     "stream": false
   }'
 ```
@@ -46,9 +48,7 @@ response = client.chat.completions.create(
         "role": "user",
         "content": "Apply an AR filter effect to this face photo: add glowing butterfly wings framing the face, tiny floating sparkles around the head, and soft pastel rainbow light streaks across the cheeks. Dreamy ethereal effect, high quality, natural face preserved underneath."
     }],
-    extra_body={
-        "image_urls": ["https://example.com/selfie.jpg"]
-    }
+    # Images are included in the message content array above
 )
 
 print(response.choices[0].message.content)
@@ -66,18 +66,18 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Apply this AR filter style from the second image onto the face in the first image. Match the same overlay elements, color effects, and positioning. Preserve the original face features naturally."
-      }
-    ],
-    "image_urls": [
-      "https://example.com/my-selfie.jpg",
-      "https://example.com/filter-reference.jpg"
+        "content": [
+              {"type": "text", "text": "Apply this AR filter style from the second image onto the face in the first image. Match the same overlay elements, color effects, and positioning. Preserve the original face features naturally."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/my-selfie.jpg"}},
+              {"type": "image_url", "image_url": {"url": "https://example.com/filter-reference.jpg"}}
+            ]
+          }
     ],
     "stream": false
   }'
 ```
 
-> `image_urls` is a top-level request parameter (not inside messages). Maximum 4 images.
+> Images are sent inside messages using the OpenAI multimodal content format. Maximum 4 images per request.
 
 ### Streaming
 
@@ -132,10 +132,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Apply a cyberpunk AR filter to this face: neon circuit-board line patterns glowing in cyan across the cheeks and forehead, one eye replaced with a red cybernetic lens, holographic data readout floating next to the head, and a subtle neon purple underglow. Dark moody lighting, high-tech aesthetic, face identity preserved."
-      }
+        "content": [
+              {"type": "text", "text": "Apply a cyberpunk AR filter to this face: neon circuit-board line patterns glowing in cyan across the cheeks and forehead, one eye replaced with a red cybernetic lens, holographic data readout floating next to the head, and a subtle neon purple underglow. Dark moody lighting, high-tech aesthetic, face identity preserved."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/portrait.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/portrait.jpg"],
     "stream": false
   }'
 ```
@@ -150,10 +152,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Apply a beauty AR filter to this selfie: a lush flower crown of pink peonies, white daisies, and green eucalyptus leaves resting on the head. Soft skin smoothing, subtle rosy blush on cheeks, bright sparkling eyes. Warm golden light filter over the entire image, soft bokeh background. Natural and elegant."
-      }
+        "content": [
+              {"type": "text", "text": "Apply a beauty AR filter to this selfie: a lush flower crown of pink peonies, white daisies, and green eucalyptus leaves resting on the head. Soft skin smoothing, subtle rosy blush on cheeks, bright sparkling eyes. Warm golden light filter over the entire image, soft bokeh background. Natural and elegant."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/selfie.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/selfie.jpg"],
     "stream": false
   }'
 ```
@@ -168,10 +172,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Transform this face photo into a comic book AR effect: bold black ink outlines around facial features, halftone dot shading on skin, exaggerated contrast, vibrant pop art color palette. Comic-style speech bubble floating next to the head (empty for text). Retro comic book aesthetic, face structure preserved."
-      }
+        "content": [
+              {"type": "text", "text": "Transform this face photo into a comic book AR effect: bold black ink outlines around facial features, halftone dot shading on skin, exaggerated contrast, vibrant pop art color palette. Comic-style speech bubble floating next to the head (empty for text). Retro comic book aesthetic, face structure preserved."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/face-photo.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/face-photo.jpg"],
     "stream": false
   }'
 ```
@@ -186,10 +192,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Apply a winter holiday AR filter to this face photo: a cozy knit Santa hat on the head, soft snowflakes falling in the foreground, a warm red nose glow, frost crystals forming at the edges of the frame, and a subtle warm golden light. Cheerful festive mood, face naturally preserved."
-      }
+        "content": [
+              {"type": "text", "text": "Apply a winter holiday AR filter to this face photo: a cozy knit Santa hat on the head, soft snowflakes falling in the foreground, a warm red nose glow, frost crystals forming at the edges of the frame, and a subtle warm golden light. Cheerful festive mood, face naturally preserved."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/winter-selfie.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/winter-selfie.jpg"],
     "stream": false
   }'
 ```

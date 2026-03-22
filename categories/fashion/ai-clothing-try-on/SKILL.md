@@ -22,12 +22,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Put the clothing from the second image onto the person in the first image. Keep the person identity, pose, and background the same. Realistic fit and natural fabric draping."
-      }
-    ],
-    "image_urls": [
-      "https://example.com/person-photo.jpg",
-      "https://example.com/garment-photo.jpg"
+        "content": [
+              {"type": "text", "text": "Put the clothing from the second image onto the person in the first image. Keep the person identity, pose, and background the same. Realistic fit and natural fabric draping."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/person-photo.jpg"}},
+              {"type": "image_url", "image_url": {"url": "https://example.com/garment-photo.jpg"}}
+            ]
+          }
     ],
     "stream": false
   }'
@@ -49,12 +49,7 @@ response = client.chat.completions.create(
         "role": "user",
         "content": "Put the clothing from the second image onto the person in the first image. Keep the person identity, pose, and background the same. Realistic fit and natural fabric draping."
     }],
-    extra_body={
-        "image_urls": [
-            "https://example.com/person-photo.jpg",
-            "https://example.com/garment-photo.jpg"
-        ]
-    }
+    # Images are included in the message content array above
 )
 
 print(response.choices[0].message.content)
@@ -72,15 +67,17 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Dress the person in the first image in a classic black leather biker jacket over a white t-shirt with slim dark jeans. Maintain the original pose and face. Photorealistic result."
-      }
+        "content": [
+              {"type": "text", "text": "Dress the person in the first image in a classic black leather biker jacket over a white t-shirt with slim dark jeans. Maintain the original pose and face. Photorealistic result."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/person-photo.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/person-photo.jpg"],
     "stream": false
   }'
 ```
 
-> `image_urls` is a top-level request parameter (not inside messages). Maximum 4 images.
+> Images are sent inside messages using the OpenAI multimodal content format. Maximum 4 images per request.
 
 ### Streaming
 
@@ -114,12 +111,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Put this red silk midi dress from the second image onto the woman in the first image. Preserve her face, hairstyle, and the outdoor park background. Natural draping, realistic shadows."
-      }
-    ],
-    "image_urls": [
-      "https://example.com/woman-standing-park.jpg",
-      "https://example.com/red-silk-dress-flatlay.jpg"
+        "content": [
+              {"type": "text", "text": "Put this red silk midi dress from the second image onto the woman in the first image. Preserve her face, hairstyle, and the outdoor park background. Natural draping, realistic shadows."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/woman-standing-park.jpg"}},
+              {"type": "image_url", "image_url": {"url": "https://example.com/red-silk-dress-flatlay.jpg"}}
+            ]
+          }
     ],
     "stream": false
   }'
@@ -135,10 +132,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Change the outfit on the person in this image to a navy pinstripe three-piece suit with a crisp white shirt and burgundy silk tie. Keep the face, hair, and background identical. Professional photo quality."
-      }
+        "content": [
+              {"type": "text", "text": "Change the outfit on the person in this image to a navy pinstripe three-piece suit with a crisp white shirt and burgundy silk tie. Keep the face, hair, and background identical. Professional photo quality."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/man-office.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/man-office.jpg"],
     "stream": false
   }'
 ```
@@ -153,12 +152,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Put the denim jacket from the second image onto the person in the first image. Keep everything else the same: face, pose, pants, shoes, background. Only replace the upper body outerwear."
-      }
-    ],
-    "image_urls": [
-      "https://example.com/person-casual.jpg",
-      "https://example.com/denim-jacket.jpg"
+        "content": [
+              {"type": "text", "text": "Put the denim jacket from the second image onto the person in the first image. Keep everything else the same: face, pose, pants, shoes, background. Only replace the upper body outerwear."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/person-casual.jpg"}},
+              {"type": "image_url", "image_url": {"url": "https://example.com/denim-jacket.jpg"}}
+            ]
+          }
     ],
     "stream": false
   }'

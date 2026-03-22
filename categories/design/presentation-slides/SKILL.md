@@ -62,15 +62,17 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Create a section divider slide background in the same visual style as this reference. Match the color palette and abstract elements, but create a variation suitable for a new section of the presentation, 16:9 landscape."
-      }
+        "content": [
+              {"type": "text", "text": "Create a section divider slide background in the same visual style as this reference. Match the color palette and abstract elements, but create a variation suitable for a new section of the presentation, 16:9 landscape."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/slide-reference.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/slide-reference.jpg"],
     "stream": false
   }'
 ```
 
-> `image_urls` is a top-level request parameter (not inside messages). Maximum 4 images.
+> Images are sent inside messages using the OpenAI multimodal content format. Maximum 4 images per request.
 
 ### Streaming
 

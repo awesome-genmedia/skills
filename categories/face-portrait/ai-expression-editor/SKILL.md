@@ -22,10 +22,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Change the expression in this photo to a warm, natural smile with slightly squinted eyes. Keep everything else exactly the same — same lighting, background, hair, and clothing."
-      }
+        "content": [
+              {"type": "text", "text": "Change the expression in this photo to a warm, natural smile with slightly squinted eyes. Keep everything else exactly the same — same lighting, background, hair, and clothing."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/neutral-portrait.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/neutral-portrait.jpg"],
     "stream": false
   }'
 ```
@@ -46,9 +48,7 @@ response = client.chat.completions.create(
         "role": "user",
         "content": "Change the expression in this photo to a warm, natural smile with slightly squinted eyes. Keep everything else exactly the same — same lighting, background, hair, and clothing."
     }],
-    extra_body={
-        "image_urls": ["https://example.com/neutral-portrait.jpg"]
-    }
+    # Images are included in the message content array above
 )
 
 print(response.choices[0].message.content)
@@ -61,13 +61,17 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
   -H "Content-Type: application/json" \
   -H "X-API-Key: $EACHLABS_API_KEY" \
   -d '{
-    "messages": [{"role": "user", "content": "Make this person look surprised with raised eyebrows and open mouth. Keep the rest of the photo unchanged."}],
-    "image_urls": ["https://example.com/photo.jpg"],
+    "messages": [{"role": "user", "content": [
+              {"type": "text", "text": "Make this person look surprised with raised eyebrows and open mouth. Keep the rest of the photo unchanged."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/photo.jpg"}}
+            ]
+          }
+    ],
     "stream": false
   }'
 ```
 
-> `image_urls` is a top-level request parameter (not inside messages). Maximum 4 images.
+> Images are sent inside messages using the OpenAI multimodal content format. Maximum 4 images per request.
 
 ### Streaming
 
@@ -125,10 +129,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Change this person from their neutral expression to genuinely laughing. Open mouth showing teeth, crinkled eyes, raised cheeks, natural laugh lines. The laugh should look authentic, not posed. Keep everything else in the photo identical."
-      }
+        "content": [
+              {"type": "text", "text": "Change this person from their neutral expression to genuinely laughing. Open mouth showing teeth, crinkled eyes, raised cheeks, natural laugh lines. The laugh should look authentic, not posed. Keep everything else in the photo identical."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/serious-face.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/serious-face.jpg"],
     "stream": false
   }'
 ```
@@ -143,10 +149,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Add a professional, confident closed-mouth smile to this corporate headshot. Slight upturning of the mouth corners, engaged eyes, approachable but not overly casual. Maintain the professional lighting and background exactly as-is."
-      }
+        "content": [
+              {"type": "text", "text": "Add a professional, confident closed-mouth smile to this corporate headshot. Slight upturning of the mouth corners, engaged eyes, approachable but not overly casual. Maintain the professional lighting and background exactly as-is."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/corporate-headshot.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/corporate-headshot.jpg"],
     "stream": false
   }'
 ```
@@ -161,10 +169,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Change this person expression to genuine surprise. Eyebrows raised high, eyes wide open, mouth in a small O shape, like they just received unexpected good news. Natural and believable, not cartoonish. Keep everything else the same."
-      }
+        "content": [
+              {"type": "text", "text": "Change this person expression to genuine surprise. Eyebrows raised high, eyes wide open, mouth in a small O shape, like they just received unexpected good news. Natural and believable, not cartoonish. Keep everything else the same."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/casual-portrait.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/casual-portrait.jpg"],
     "stream": false
   }'
 ```
@@ -179,10 +189,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Change this smiling portrait to a thoughtful, contemplative expression. Slight furrowing of the brows, eyes looking slightly upward, closed relaxed mouth, as if deep in thought. Intellectual and introspective feel. Keep the same photo quality and setting."
-      }
+        "content": [
+              {"type": "text", "text": "Change this smiling portrait to a thoughtful, contemplative expression. Slight furrowing of the brows, eyes looking slightly upward, closed relaxed mouth, as if deep in thought. Intellectual and introspective feel. Keep the same photo quality and setting."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/smiling-portrait.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/smiling-portrait.jpg"],
     "stream": false
   }'
 ```
@@ -198,10 +210,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Change this portrait to show a bright, genuine smile with teeth showing and happy eyes. Keep everything else identical."
-      }
+        "content": [
+              {"type": "text", "text": "Change this portrait to show a bright, genuine smile with teeth showing and happy eyes. Keep everything else identical."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/model-neutral.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/model-neutral.jpg"],
     "stream": false
   }'
 
@@ -213,10 +227,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Change this portrait to a surprised, excited expression. Wide eyes, raised brows, open mouth, like discovering something amazing. Keep everything else identical."
-      }
+        "content": [
+              {"type": "text", "text": "Change this portrait to a surprised, excited expression. Wide eyes, raised brows, open mouth, like discovering something amazing. Keep everything else identical."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/model-neutral.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/model-neutral.jpg"],
     "stream": false
   }'
 
@@ -228,10 +244,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Change this portrait to a confident, determined expression. Firm jaw, direct gaze, slight squint, subtle closed-mouth smile conveying strength. Keep everything else identical."
-      }
+        "content": [
+              {"type": "text", "text": "Change this portrait to a confident, determined expression. Firm jaw, direct gaze, slight squint, subtle closed-mouth smile conveying strength. Keep everything else identical."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/model-neutral.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/model-neutral.jpg"],
     "stream": false
   }'
 ```

@@ -22,10 +22,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Apply a natural everyday makeup look to this photo. Light foundation evening out skin tone, subtle peach blush on the cheeks, brown eyeshadow with soft blending, thin black eyeliner, natural brown mascara, and a nude pink lipstick. Keep it realistic and wearable."
-      }
+        "content": [
+              {"type": "text", "text": "Apply a natural everyday makeup look to this photo. Light foundation evening out skin tone, subtle peach blush on the cheeks, brown eyeshadow with soft blending, thin black eyeliner, natural brown mascara, and a nude pink lipstick. Keep it realistic and wearable."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/bare-face.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/bare-face.jpg"],
     "stream": false
   }'
 ```
@@ -46,9 +48,7 @@ response = client.chat.completions.create(
         "role": "user",
         "content": "Apply a natural everyday makeup look to this photo. Light foundation evening out skin tone, subtle peach blush on the cheeks, brown eyeshadow with soft blending, thin black eyeliner, natural brown mascara, and a nude pink lipstick. Keep it realistic and wearable."
     }],
-    extra_body={
-        "image_urls": ["https://example.com/bare-face.jpg"]
-    }
+    # Images are included in the message content array above
 )
 
 print(response.choices[0].message.content)
@@ -63,13 +63,18 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
   -H "Content-Type: application/json" \
   -H "X-API-Key: $EACHLABS_API_KEY" \
   -d '{
-    "messages": [{"role": "user", "content": "Apply the makeup style from the second image onto the face in the first image. Match the lipstick color, eyeshadow, and overall look."}],
-    "image_urls": ["https://example.com/my-face.jpg", "https://example.com/makeup-reference.jpg"],
+    "messages": [{"role": "user", "content": [
+              {"type": "text", "text": "Apply the makeup style from the second image onto the face in the first image. Match the lipstick color, eyeshadow, and overall look."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/my-face.jpg"}},
+              {"type": "image_url", "image_url": {"url": "https://example.com/makeup-reference.jpg"}}
+            ]
+          }
+    ],
     "stream": false
   }'
 ```
 
-> `image_urls` is a top-level request parameter (not inside messages). Maximum 4 images.
+> Images are sent inside messages using the OpenAI multimodal content format. Maximum 4 images per request.
 
 ### Streaming
 
@@ -141,10 +146,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Apply a glamorous evening makeup look to this portrait. Full coverage matte foundation, sculpted contour on the cheekbones, warm bronze and gold smoky eyeshadow blended into the crease, dramatic winged black eyeliner, full false lash effect, rose gold highlighter on cheekbones, and a classic matte red lipstick. Polished and camera-ready."
-      }
+        "content": [
+              {"type": "text", "text": "Apply a glamorous evening makeup look to this portrait. Full coverage matte foundation, sculpted contour on the cheekbones, warm bronze and gold smoky eyeshadow blended into the crease, dramatic winged black eyeliner, full false lash effect, rose gold highlighter on cheekbones, and a classic matte red lipstick. Polished and camera-ready."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/bare-portrait.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/bare-portrait.jpg"],
     "stream": false
   }'
 ```
@@ -159,10 +166,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Apply elegant bridal makeup to this face. Flawless dewy foundation, soft peach blush, champagne shimmer eyeshadow with subtle brown in the crease, thin brown eyeliner with individual lashes, groomed natural brows, and a soft mauve pink satin lipstick. Timeless, romantic, and photograph-ready."
-      }
+        "content": [
+              {"type": "text", "text": "Apply elegant bridal makeup to this face. Flawless dewy foundation, soft peach blush, champagne shimmer eyeshadow with subtle brown in the crease, thin brown eyeliner with individual lashes, groomed natural brows, and a soft mauve pink satin lipstick. Timeless, romantic, and photograph-ready."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/bride-bare.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/bride-bare.jpg"],
     "stream": false
   }'
 ```
@@ -177,10 +186,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Apply an editorial avant-garde makeup look. Flawless porcelain base, no blush, graphic cobalt blue eyeliner extending past the outer eye in a geometric wing shape, no mascara for a clean modern look, bleached and brushed-up brows, and a deep plum matte lip. High-fashion editorial style."
-      }
+        "content": [
+              {"type": "text", "text": "Apply an editorial avant-garde makeup look. Flawless porcelain base, no blush, graphic cobalt blue eyeliner extending past the outer eye in a geometric wing shape, no mascara for a clean modern look, bleached and brushed-up brows, and a deep plum matte lip. High-fashion editorial style."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/model-clean.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/model-clean.jpg"],
     "stream": false
   }'
 ```
@@ -195,10 +206,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Apply only a lipstick to this face photo. Deep berry-wine matte lipstick with a precise, clean lip line. Do not change anything else about the face, just add the lipstick."
-      }
+        "content": [
+              {"type": "text", "text": "Apply only a lipstick to this face photo. Deep berry-wine matte lipstick with a precise, clean lip line. Do not change anything else about the face, just add the lipstick."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/face-closeup.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/face-closeup.jpg"],
     "stream": false
   }'
 ```
@@ -214,10 +227,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Apply natural everyday makeup: light tinted moisturizer, subtle peach blush, beige matte eyeshadow, brown mascara, tinted lip balm in rose. Keep it minimal and fresh."
-      }
+        "content": [
+              {"type": "text", "text": "Apply natural everyday makeup: light tinted moisturizer, subtle peach blush, beige matte eyeshadow, brown mascara, tinted lip balm in rose. Keep it minimal and fresh."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/my-face.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/my-face.jpg"],
     "stream": false
   }'
 
@@ -229,10 +244,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Apply a smoky eye look: medium coverage foundation, subtle contour, dark charcoal and black smoky eyeshadow blended outward, smudged black eyeliner on upper and lower lash line, volumizing mascara, nude lip with gloss. Dramatic but elegant."
-      }
+        "content": [
+              {"type": "text", "text": "Apply a smoky eye look: medium coverage foundation, subtle contour, dark charcoal and black smoky eyeshadow blended outward, smudged black eyeliner on upper and lower lash line, volumizing mascara, nude lip with gloss. Dramatic but elegant."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/my-face.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/my-face.jpg"],
     "stream": false
   }'
 
@@ -244,10 +261,12 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "Apply a bold lip look: even skin base, light pink blush, minimal eye makeup with just mascara and clean brows, and a vibrant true red matte lipstick as the focal point. Classic and striking."
-      }
+        "content": [
+              {"type": "text", "text": "Apply a bold lip look: even skin base, light pink blush, minimal eye makeup with just mascara and clean brows, and a vibrant true red matte lipstick as the focal point. Classic and striking."},
+              {"type": "image_url", "image_url": {"url": "https://example.com/my-face.jpg"}}
+            ]
+          }
     ],
-    "image_urls": ["https://example.com/my-face.jpg"],
     "stream": false
   }'
 ```

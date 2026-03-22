@@ -56,10 +56,11 @@ curl -X POST https://eachsense-agent.core.eachlabs.run/v1/chat/completions \
     "messages": [
       {
         "role": "user",
-        "content": "A short product reveal video: a premium wireless speaker slowly rotating on a turntable, dramatic lighting highlighting the brushed aluminum finish and fabric mesh texture, soft reflections, dark background, smooth 360-degree rotation, commercial product video style"
-      }
+        "content": [
+              {"type": "text", "text": "A short product reveal video: a premium wireless speaker slowly rotating on a turntable, dramatic lighting highlighting the brushed aluminum finish and fabric mesh texture, soft reflections, dark background, smooth 360-degree rotation, commercial product video style"}
+            ]
+          }
     ],
-    "image_urls": ["IMAGE_URL_FROM_STEP_1"],
     "stream": false
   }'
 ```
